@@ -5,7 +5,7 @@ from konlpy.tag import Okt
 import re
 import numpy as np
 import pandas as pd
-from pythonCode import modeling
+from server.pythonCode import modeling
 import time
 import os
 
@@ -72,7 +72,7 @@ def predict(news):
     print("NLP model_day1 save Completed!")
     predict = model.predict(test_x)
     predict_Label = np.argmax(predict, axis=1)
-    result = test.assign(label=predict_Label)
+    result = test.assign(Label=predict_Label)
 
     return result
 

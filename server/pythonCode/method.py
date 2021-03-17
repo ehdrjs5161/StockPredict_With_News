@@ -3,7 +3,7 @@ import pandas as pd
 import datetime
 from collections import OrderedDict
 import os
-from server.pythonCode import getPrice, getNews, method, DB_Handler
+from . import getPrice, getNews, method, DB_Handler
 
 mongo = DB_Handler.DBHandler()
 db_name = "stockPredict"
@@ -115,12 +115,17 @@ def re_sizing(batch_size, data):
             cnt += 1
     return cnt
 
-def inverseTransform(Scaler, normed_data):
+def inverseTransform(Scaler, normed_data, features):
     real_data = []
     for i in range(0, len(normed_data)):
         temp = []
         for j in range(0, len(normed_data[0])):
-            temp.append(Scaler.inverse_transform([[normed_data[i][j], 0, 0]])[0][0])
+            if features == 2:
+                temp.append(Scaler.inverse_transform([[normed_data[i][j], 0]])[0][0])
+            elif features == 3:
+                temp.append(Scaler.inverse_transform([[normed_data[i][j], 0, 0]])[0][0])
+            else:
+                print("confirm # of features")
         real_data.append(temp)
     return real_data
 

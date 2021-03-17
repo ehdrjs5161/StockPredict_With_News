@@ -1,22 +1,63 @@
-import React from 'react';
-import {LineChart, Line, YAxis, XAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
-function Chart (props) {
+import React from "react";
+import { render } from "react-dom";
+import HighchartsReact from "highcharts-react-official";
+import Highcharts from "highcharts/highstock";
+import MyStockChart from './MyStockChart.js';
+
+class Chart extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.afterChartCreated = this.afterChartCreated.bind(this);
+    const price = this.props.data;
+    const date = this.props.date;
+    this.state = {
+      chartOptions: {
+        series: [
+          {
+            data: price
+          }
+        ],
+        xAxis: {
+          labels: {
+            useHTML: true,
+            formatter: function () {
+              return Highcharts.dateFormat("%y.%m.%d", this.date);
+            }
+          }
+        }
+      }
+    };
+  }
+
+  afterChartCreated(chart) {
+    this.internalChart = chart;
+    this.forceUpdate();
+  }
+
+  componentDidUpdate() {
+    //this.internalChart.getMargins(); // redraw
+    this.internalChart.reflow();
+  }
+
+  render() {
+    const chart = this.internalChart;
+
     return (
-        <div>
-            <LineChart width={1200}
-                height={500}
-                data = {props.data}
-            >
-                <CartesianGrid strokeDasharray=""/>
-                <YAxis yAxisId="right" orientation="right"/>
-                <YAxis dataKey="Price"/>
-                <XAxis dataKey="Date"/>
-                <Tooltip/>
-                <Legend/>
-                <Line type="monotone" dataKey="Price" stroke="#8884d8" activeDot="r:8"/>
-            </LineChart>
-        </div>
-    )
+      <div>
+        <HighchartsReact
+          highcharts={Highcharts}
+          constructorType={"stockChart"}
+          options={this.state.chartOptions}
+          callback={this.afterChartCreated}
+        />
+      </div>
+    );
+  }
 }
 
+// const Chart = () => <div>
+//   <MyStockChart />
+// </div>
+
 export default Chart;
+ 

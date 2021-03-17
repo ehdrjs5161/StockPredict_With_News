@@ -2,7 +2,7 @@ import pandas as pd
 import requests
 import time
 import datetime
-from server.pythonCode import sentiment_analysis as sent
+from . import sentiment_analysis as sent
 from bs4 import BeautifulSoup
 
 def day_range(begin, end):

@@ -1,8 +1,7 @@
 import pandas as pd
 import datetime
-from server.pythonCode import modeling, method, getNews, getPrice, DB_Handler
+from . import modeling, method, getNews, getPrice, DB_Handler
 import os
-import json
 from collections import OrderedDict
 
 mongo = DB_Handler.DBHandler()
@@ -23,6 +22,8 @@ class companys:
         self.result_day1 = None
         self.result_day7 = None
         self.update_day = None
+        self.unit = None
+        self.epoch = None
 
     def load_data(self):
         self.news, self.price = method.load_data(self)
@@ -48,7 +49,7 @@ class companys:
             self.news = pd.concat([self.news, self.newNews])
 
             temp = getPrice.stock_price(self.code, begin=self.update_day)
-            temp.to_csv("price/"+self.code+".csv", encoding="UTF-8")
+            temp.to_csv("file/price/"+self.code+".csv", encoding="UTF-8")
             self.newPrice = pd.read_csv("price/"+self.code+".csv", encoding="UTF-8")[['Date', 'High', 'Low', 'Open', 'Close', 'Volume']]
             newPrice = method.csv_to_json(self.newPrice)
 
@@ -64,21 +65,25 @@ class companys:
 
     def model_setting(self, batch, term, features):
         self.features = features
-        if not os.path.isfile("model/model_day1/withNews/"+self.code+"/saved_model.pb"):
-            print("predict 1 day Model Compiling...")
-            self.model_day1 = modeling.modeling(batch, term, self.features)
-            self.model_day1 = modeling.model_educate(self, term, batch, 1)
-
+        if features == 2:
+            self.model_day1 = modeling.load_model(self.code, predict_day=1, features=features)
+            self.model_day7 = modeling.load_model(self.code, predict_day=7, features=features)
         else:
-            self.model_day1 = modeling.load_model(self.code, predict_day=1)
+            if not os.path.isfile("model/model_day1/withNews/d" + self.code + "/saved_model.pb"):
+                print("predict 1 day Model Compiling...")
+                self.model_day1 = modeling.modeling(batch, term, self.features)
+                self.model_day1 = modeling.model_educate(self, term, batch, 1)
 
-        if not os.path.isfile("model/model_day7/withNews/"+self.code+"/saved_model.pb"):
-            print("predict 7 days Model Compiling...")
-            self.model_day7 = modeling.modeling_day7(batch, term, self.features)
-            self.model_day7 = modeling.model_educate(self, term, batch, 7)
+            else:
+                self.model_day1 = modeling.load_model(self.code, predict_day=1, features=features)
 
-        else:
-            self.model_day7 = modeling.load_model(self.code, predict_day=7)
+            # if not os.path.isfile("model/model_day7/withNews/d" + self.code + "/saved_model.pb"):
+            #     print("predict 7 days Model Compiling...")
+            #     self.model_day7 = modeling.modeling_day7(batch, term, self.features)
+            #     self.model_day7 = modeling.model_educate(self, term, batch, 7)
+            #
+            # else:
+            #     self.model_day7 = modeling.load_model(self.code, predict_day=7, features=features)
 
     def predict_price_day1(self):
         self.result_day1 = modeling.predict_day1(self)
@@ -98,14 +103,13 @@ class companys:
         print("Model Update Completed!")
 
     def result_save(self):
-        file_path = "./json_result/withNews/" + self.code +".json"
-        rank_path = "./json_result/withNews/Rank.json"
-
         company = OrderedDict()
-        result = OrderedDict()
+        rate = OrderedDict()
+
         company["name"] = self.name
         company["code"] = self.code
-
+        rate['code'] = self.code
+        rate['name'] = self.name
         temp = []
         for i in range(0, len(self.result_day1['Time'])):
             price = {'Date': '{}'.format(self.result_day1['Time'][i]),
@@ -130,7 +134,6 @@ class companys:
             
         company['predict_day7'] = temp
 
-        rate = OrderedDict()
         last_price1 = self.result_day1['Price'][-1]
         rate1 = 100 * (company['predict_day1'] - last_price1) / last_price1
         rate['predict_rate1'] = round(rate1, 2)
@@ -145,24 +148,10 @@ class companys:
                               self.result_day7['Predict'][0][i - 1], 2)
             temp.append(rate2)
         rate['predict_rate2'] = temp
-
         company['rate'] = rate
-        result['{}'.format(self.code)] = company
-        
-        with open(file_path, "w") as f:
-            json.dump(result, f, indent="\t")
 
-        if os.path.isfile(rank_path):
-            rank = OrderedDict()
-        else:
-            with open(rank_path, "r") as f:
-                rank = json.load(f)
-
-        rank['{}'.format(self.code)] = rate
-        print(rank)
-
-        with open(rank_path, "w") as rank_file:
-            json.dump(rank, rank_file, indent="\t")
+        mongo.update_item(condition={"code": "{}".format(self.code)}, update_value=company, db_name=db_name, collection_name="predictResult")
+        mongo.update_item(condition={"code": "{}".format(self.code)}, update_value=rate, db_name=db_name, collection_name="rank")
 
 
 
