@@ -1,11 +1,6 @@
-./client/node_modules
-
-./client/coverage
-
-./client/build
-
-./server/model/*
-
+client/build
+client/node_modules
+server/model/*
 # misc
 ./client/.DS_Store
 ./client/.env.local
@@ -13,6 +8,7 @@
 ./client/.env.test.local
 ./client/.env.production.local
 
-./client/npm-debug.log*
-./client/yarn-debug.log*
-./client/yarn-error.log*
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*
+ .idea
