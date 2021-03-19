@@ -50,6 +50,7 @@ def parsing(name, begin, end):
         time.sleep(0.0001)
 
     frame = pd.DataFrame({'Date': date_result, 'Title': title_result})
+    frame.drop_duplicates(['Title'], inplace=True)
     frame = sent.labeling(frame)
     return frame
 

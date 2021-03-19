@@ -63,6 +63,8 @@ def load_data(company):
     else:
         price = pd.DataFrame(price['price'])
 
+    news.drop_duplicates(['Title'], inplace=True)
+
     return news, price
 
 def swift_type(news):

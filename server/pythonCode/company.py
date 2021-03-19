@@ -66,23 +66,39 @@ class companys:
     def model_setting(self, batch, term, features):
         self.features = features
         if features == 2:
-            self.model_day1 = modeling.load_model(self.code, predict_day=1, features=features)
-            self.model_day7 = modeling.load_model(self.code, predict_day=7, features=features)
-        else:
-            if not os.path.isfile("model/model_day1/withNews/d" + self.code + "/saved_model.pb"):
+            if not os.path.isfile("model/model_day1/" + self.code + "/saved_model.pb"):
                 print("predict 1 day Model Compiling...")
                 self.model_day1 = modeling.modeling(batch, term, self.features)
                 self.model_day1 = modeling.model_educate(self, term, batch, 1)
-
             else:
                 self.model_day1 = modeling.load_model(self.code, predict_day=1, features=features)
+                print("predict 1 day Model load completed!")
+
+            if not os.path.isfile("model/model_day7/d" + self.code + "/saved_model.pb"):
+                print("predict 7 days Model Compiling...")
+                self.model_day7 = modeling.modeling_day7(batch, term, self.features)
+                self.model_day7 = modeling.model_educate(self, term, batch, 7)
+                print("predict 7 days Model load completed!")
+            else:
+                self.model_day7 = modeling.load_model(self.code, predict_day=7, features=features)
+                print("predict 7 day Model load completed!")
+        else:
+            if not os.path.isfile("model/model_day1/withNews/" + self.code + "/saved_model.pb"):
+                print("predict 1 day Model Compiling...")
+                self.model_day1 = modeling.modeling(batch, term, self.features)
+                self.model_day1 = modeling.model_educate(self, term, batch, 1)
+            else:
+                self.model_day1 = modeling.load_model(self.code, predict_day=1, features=features)
+                print("predict 1 day Model load completed!")
 
             if not os.path.isfile("model/model_day7/withNews/d" + self.code + "/saved_model.pb"):
                 print("predict 7 days Model Compiling...")
                 self.model_day7 = modeling.modeling_day7(batch, term, self.features)
                 self.model_day7 = modeling.model_educate(self, term, batch, 7)
+                print("predict 7 days Model load completed!")
 
             else:
+                print("Load model..")
                 self.model_day7 = modeling.load_model(self.code, predict_day=7, features=features)
 
     def predict_price_day1(self):

@@ -1,8 +1,8 @@
 from flask import Flask
 import pandas as pd
-import pythonCode.DB_Handler as DB_Handler
-import pythonCode.method as method
-import pythonCode.company as company
+import server.pythonCode.DB_Handler as DB_Handler
+import server.pythonCode.method as method
+import server.pythonCode.company as company
 import datetime
 from collections import OrderedDict
 mongo = DB_Handler.DBHandler()
@@ -20,13 +20,13 @@ def predict(code):
     update = method.date_to_str(datetime.datetime.today() - datetime.timedelta(days=1))
     print(update, comp.update_day)
 
-    if update == comp.update_day:
-        comp.update_data()
+    if update != comp.update_day:
+        # comp.update_data()
         print(len(comp.news), len(comp.price))
-        comp.model_setting(3, 28, 2)
-        comp.test_predict_day1()
-        comp.model_setting(3, 28, 3)
-        comp.test_predict_day1()
+        comp.model_setting(10, 28, 2)
+        comp.test_predict_day7()
+        comp.model_setting(10, 28, 3)
+        comp.test_predict_day7()
         # comp.result_save()
 
     result = mongo.find_item(condition={"code": "{}".format(comp.code)}, db_name="stockPredict", collection_name="predictResult")

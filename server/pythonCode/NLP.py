@@ -12,17 +12,6 @@ import os
 stopwords = [',', '…', '-', '\'', '·', '‘', '\"', '!', '`', '…', '’', '의', '가', '이', '은',
              '들', '는', '좀', '잘', '걍', '과', '도', '를', '으로', '자', '에', '와', '한', '하다']
 
-def newsLabeling(news):
-    result = []
-    max_word = 35000
-    tokenizer = Tokenizer(num_words=max_word)
-    for title in news['Title']:
-        title = re.sub('[-=+,~!@#$%^&*>>[]]', '', str(title))
-        temp = Okt.morphs(title, stem=True)
-        temp = [word for word in temp if not word in stopwords]
-        result.append(temp)
-    tokenizer.fit_on_texts(result)
-
 def preprocess(data):
     okt = Okt()
     x_data = []
@@ -36,12 +25,15 @@ def preprocess(data):
 
 def predict(news):
     max_len =30
-    begin = time.time()
+
     train = pd.read_csv("../file/NLP/train_data.csv", encoding="utf-8")[['Title', 'Label']]
+
+    begin = time.time()
     train_x = preprocess(train)
     end = time.time()
+    print("predict_method_preprocess Time: ", end - begin, "(sec)")
 
-    max_words = 35000
+    max_words = 50000
     tokenizer = Tokenizer(num_words=max_words)
     tokenizer.fit_on_texts(train_x)
     train_x = tokenizer.texts_to_sequences(train_x)
@@ -62,14 +54,16 @@ def predict(news):
         elif train['Label'].iloc[i] == -1:
             train_y.append([1, 0, 0])
 
+    train_y = np.array(train_y)
     if not os.path.isfile("../model/NLP_model/saved_model.pb"):
+        print("dd")
         model = modeling.modeling_nlp(max_words)
         print("model_day1 Setting Completed")
         history = model.fit(train_x, train_y, epochs=10, batch_size=10, validation_split=0.1)
-        model.save("../NLP_model")
+        model.save("../test_result/NLP_model")
 
     model = load_model("../model/NLP_model")
-    print("NLP model_day1 save Completed!")
+    print("NLP model load Completed!")
     predict = model.predict(test_x)
     predict_Label = np.argmax(predict, axis=1)
     result = test.assign(Label=predict_Label)
@@ -78,51 +72,29 @@ def predict(news):
 
 def predict_prototype(news):
     print("Predict")
-    max_len =30
-    begin = time.time()
-    train = pd.read_csv("../file/NLP/train_data.csv", encoding="utf-8")[['Title', 'Label']]
-    # train_x = preprocess(train)
-    end = time.time()
-    max_words = 35000
-    tokenizer = Tokenizer(num_words=max_words)
-    # tokenizer.fit_on_texts(train_x)
-    test = pd.read_csv("../file/news/068270.csv", encoding="UTF-8")[["Date", 'Title']]
+    max_len =50
 
+    train = pd.read_csv("../file/NLP/train_data.csv", encoding="utf-8")[['Title', 'Label']]
+    test = news
+
+    begin = time.time()
     test_x = preprocess(test)
+    end = time.time()
+    print("preprocess Time: ", end - begin, "(sec)")
+
+    max_words = 50000
+    tokenizer = Tokenizer(num_words=max_words)
     tokenizer.fit_on_texts(test_x)
+
     test_x = tokenizer.texts_to_sequences(test_x)
     test_x = pad_sequences(test_x, maxlen=max_len)
     if not os.path.isfile("../model/NLP_model/saved_model.pb"):
         model = modeling.modeling_nlp(max_words)
-    model = load_model("../model/NLP_model")
-    print("NLP Load Completed!\n")
+    else:
+        model = load_model("../model/NLP_model")
+        print("NLP Load Completed!\n")
     label = model.predict(test_x)
     predict_Label = np.argmax(label, axis=1)
-    sample = test.assign(label=predict_Label)
-    sample.to_csv("../predict_method_result.csv", encoding="UTF-8")
+    sample = test.assign(Label=predict_Label)
 
-if __name__ == "__main__":
-    # educate() -> predict 로 변경
-    # predict("a") -> predict_prototype 으로 변경
-    news = pd.read_csv("../file/news/068270.csv", encoding="UTF-8")[['Date', 'Title', 'Label']]
-    sent = pd.read_csv("../file/news/processed_news/068270.csv", encoding="UTF-8")[['Date', 'Title', 'Label']]
-    score=0
-    for i in range(len(news)):
-        if news["Label"].iloc[i] == sent['Label'].iloc[i]:
-            score += 1
-    print("유사도: ", score/len(news))
-    print(news)
-    print(sent)
-    # sent = pd.read_csv("../analysis.csv", ecoding="UTF-8")[['Title', 'Label']]
-    # predict = pd.read_csv("../predict_method_result.csv", encoding="UTF-8")[['Title', 'label']]
-    # educate = pd.read_csv("../educate_method_result.csv", encoding="UTF-8")[['Title', 'label']]
-    #
-    # score1 = 0
-    # score2 = 0
-    # for i in range(len(sent)):
-    #     if sent['Label'].iloc[i] == educate['label'].iloc[i]:
-    #         score1 = score1 + 1
-    #     if sent['Label'].iloc[i] == predict['label'].iloc[i]:
-    #         score2 = score2 + 1
-    # print("Compare Educate/Senti: ", score1/len(sent)*100)
-    # print("Compare Predict/Senti: ", score2/len(sent)*100)
+    return sample
