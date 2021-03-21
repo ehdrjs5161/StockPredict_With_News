@@ -8,6 +8,6 @@ function Info(props){
             {props.rate > 0 ? <b style={{color: 'red'}}>(▲{props.rate}%)</b> : <b style={{color: 'blue'}}>(▼{props.rate}%)</b>}</b>
             <p></p>
         </div>
-    )
+    );
 }
 export default Info;

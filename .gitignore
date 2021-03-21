@@ -1,4 +1,8 @@
 client/node_modules
-server/model/*
+server/model/model_day1
+server/model/model_day7
+server/model_day1
+server/model_day7
+
  .idea
 server/test_result

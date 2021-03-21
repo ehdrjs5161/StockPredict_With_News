@@ -21,16 +21,16 @@ def set_code(code):
 def search_code(company, frame):
     codes = []
     name = company
-    code = frame['기업명'] == name
-    code = list(frame['종목코드'][code])
+    code = frame['name'] == name
+    code = list(frame['code'][code])
     codes.append(code[0])
     code = set_code(str(codes[0]))
 
     return code
 
 def code_to_name(frame, code):
-    name = frame['종목코드'] == int(code)
-    name = list(frame['기업명'][name])
+    name = frame['code'] == code
+    name = list(frame['name'][name])
     return name[0]
 
 def load_data(company):

@@ -5,19 +5,16 @@ import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 
 export default function Predict ({match}) {
-    const [inititalData, setinitialData] = useState([{}])
-    
+    const [data, setData] = useState([{}])
     useEffect(() => {
         fetch(`/code/${match.params.code}`).then(
         response =>response.json([])
-        ).then(data=>setinitialData(data))
+        ).then(data=>setData(data))
     },[]);
-
-    const data = inititalData;
+    console.log(data)
     const price = data['price']
     const date = data['date']
-    console.log(price)
-    console.log(date)
+    console.log(data.price_day1)
     // const predictDay1 = data['Price'];
     // console.log(data['price_day1'])
     const temp = [1,2,3,4,9,2,0,1]
@@ -29,7 +26,7 @@ export default function Predict ({match}) {
                 <Button>1일 예측</Button>
                 <Button>7일 예측</Button>
             </ButtonGroup> */}
-            <Chart data = {price} date={date}/>
+            <Chart data = {temp} date={date}/>
             {/* <b> 다음 개장일의 예측 종가: {predictDay1} KRW </b> */}
         </div>
     )
