@@ -247,9 +247,8 @@ def predict_day7(company):
         news = method.sent_result(company.news[['Date', 'Label']])
         data = method.merge(news, company.price[['Date', 'Close', 'Volume']], "Date", "Date")
     data = data[-35:]
-    # data = data[['Date', 'Close', 'Volume']]
+
     close = list(data['Close'])
-    # data = method.merge(company.news, company.price, "Date", "Date")
     timeline = pd.to_datetime(data.pop("Date"), format="%Y-%m-%d")
 
     Scaler = MinMaxScaler(feature_range=(0, 1))
