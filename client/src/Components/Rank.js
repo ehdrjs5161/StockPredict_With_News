@@ -11,7 +11,6 @@ function Rank() {
   console.log(rank);
   return(
     <div>
-      <h1>아이 싯팔!</h1>
     </div>
   );
  }

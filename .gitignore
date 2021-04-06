@@ -1,8 +1,7 @@
 client/node_modules
 server/model/model_day1
 server/model/model_day7
-server/model_day1
-server/model_day7
-
- .idea
-server/test_result
+server/pythonCode/test__file.py
+server/file/news
+server/file/price
+.idea/

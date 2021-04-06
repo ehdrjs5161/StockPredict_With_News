@@ -74,14 +74,14 @@ class companys:
                 self.model_day1 = modeling.load_model(self.code, predict_day=1, features=features)
                 print("predict 1 day Model load completed!")
 
-            if not os.path.isfile("model/model_day7/" + self.code + "/saved_model.pb"):
-                print("predict 7 days Model Compiling...")
-                self.model_day7 = modeling.modeling_day7(batch, term, self.features)
-                self.model_day7 = modeling.model_educate(self, term, batch, 7)
-                print("predict 7 days Model load completed!")
-            else:
-                self.model_day7 = modeling.load_model(self.code, predict_day=7, features=features)
-                print("predict 7 day Model load completed!")
+            # if not os.path.isfile("model/model_day7/" + self.code + "/saved_model.pb"):
+            #     print("predict 7 days Model Compiling...")
+            #     self.model_day7 = modeling.modeling_day7(batch, term, self.features)
+            #     self.model_day7 = modeling.model_educate(self, term, batch, 7)
+            #     print("predict 7 days Model load completed!")
+            # else:
+            #     self.model_day7 = modeling.load_model(self.code, predict_day=7, features=features)
+            #     print("predict 7 day Model load completed!")
         else:
             if not os.path.isfile("model/model_day1/withNews/" + self.code + "/saved_model.pb"):
                 print("predict 1 day Model Compiling...")
@@ -91,15 +91,15 @@ class companys:
                 self.model_day1 = modeling.load_model(self.code, predict_day=1, features=features)
                 print("predict 1 day Model load completed!")
 
-            if not os.path.isfile("model/model_day7/withNews/" + self.code + "/saved_model.pb"):
-                print("predict 7 days Model Compiling...")
-                self.model_day7 = modeling.modeling_day7(batch, term, self.features)
-                self.model_day7 = modeling.model_educate(self, term, batch, 7)
-                print("predict 7 days Model load completed!")
-
-            else:
-                print("Load model..")
-                self.model_day7 = modeling.load_model(self.code, predict_day=7, features=features)
+            # if not os.path.isfile("model/model_day7/withNews/" + self.code + "/saved_model.pb"):
+            #     print("predict 7 days Model Compiling...")
+            #     self.model_day7 = modeling.modeling_day7(batch, term, self.features)
+            #     self.model_day7 = modeling.model_educate(self, term, batch, 7)
+            #     print("predict 7 days Model load completed!")
+            #
+            # else:
+            #     print("Load model..")
+            #     self.model_day7 = modeling.load_model(self.code, predict_day=7, features=features)
 
     def predict_price_day1(self):
         self.result_day1 = modeling.predict_day1(self)
@@ -134,21 +134,21 @@ class companys:
         company['price_day1'] = temp
 
         temp = []
-        for i in range(0, len(self.result_day7['Time'])):
-            price = {'Date': '{}'.format(self.result_day7['Time'][i]),
-                     'Price': '{}'.format(int(self.result_day7['Price'][i]))}
-            temp.append(price)
-        company['price_day7'] = temp
+        # for i in range(0, len(self.result_day7['Time'])):
+        #     price = {'Date': '{}'.format(self.result_day7['Time'][i]),
+        #              'Price': '{}'.format(int(self.result_day7['Price'][i]))}
+        #     temp.append(price)
+        # company['price_day7'] = temp
 
         company['predict_day1'] = int(self.result_day1['Predict'][0][0])
 
-        temp = []
-        for i in range(0, len(self.result_day7['Predict'][0])):
-            predict = {'Date': '{}'.format(str(i + 1) + " day After"),
-                       'Price': '{}'.format(int(self.result_day7["Predict"][0][i]))}
-            temp.append(predict)
-            
-        company['predict_day7'] = temp
+        # temp = []
+        # for i in range(0, len(self.result_day7['Predict'][0])):
+        #     predict = {'Date': '{}'.format(str(i + 1) + " day After"),
+        #                'Price': '{}'.format(int(self.result_day7["Predict"][0][i]))}
+        #     temp.append(predict)
+        #
+        # company['predict_day7'] = temp
 
         last_price1 = self.result_day1['Price'][-1]
         rate1 = 100 * (company['predict_day1'] - last_price1) / last_price1
@@ -168,6 +168,3 @@ class companys:
 
         mongo.update_item(condition={"code": "{}".format(self.code)}, update_value=company, db_name=db_name, collection_name="predictResult")
         mongo.update_item(condition={"code": "{}".format(self.code)}, update_value=rate, db_name=db_name, collection_name="rank")
-
-
-

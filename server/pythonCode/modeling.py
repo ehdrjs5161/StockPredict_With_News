@@ -1,11 +1,15 @@
 import tensorflow as tf
 from tensorflow import keras
+from tensorflow.keras.utils import plot_model
 import pandas as pd
 import numpy as np
 from . import method
 from sklearn.preprocessing import MinMaxScaler
 from matplotlib import pyplot as plt
 import cufflinks as cf
+import pydot
+import graphviz
+
 cf.go_offline(connected=True)
 
 gpus = tf.config.experimental.list_physical_devices('GPU')
@@ -43,7 +47,7 @@ def load_model(code, predict_day, features):
                 model = keras.models.load_model("model/model_day7/withNews/" + code)
             else:
                 print("Deep Learning Model Not Found Error")
-
+        plot_model(model, to_file="modeling.png", show_shapes=True, rankdir='TB')
         return model
 
     except FileNotFoundError as e:
@@ -54,7 +58,7 @@ def modeling(batch, term, features):
     model = keras.Sequential()
     model.add(keras.layers.LSTM(320, batch_input_shape=(batch, term, features), return_sequences=True))
     model.add(keras.layers.LSTM(320))
-    model.add(keras.layers.Dense(1, activation='linear'))
+    model.add(keras.layers.Dense(1))
     model.compile(optimizer='adam', loss='mse')
     return model
 

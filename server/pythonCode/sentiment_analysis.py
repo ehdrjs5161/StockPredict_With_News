@@ -69,6 +69,6 @@ def labeling(news):
         title = re.sub('[]\"\"''[]', '', title)
         sent = analysis(title, pos, neg, total)
         label.append(classify(sent))
-    # news = pd.DataFrame({'Date': news['Date'], 'Title': titles, 'Label': label})
-    news = pd.DataFrame({'Title': titles, 'Label': label})
+    news = pd.DataFrame({'Date': news['Date'], 'Title': titles, 'Label': label})
+    # news = pd.DataFrame({'Title': titles, 'Label': label})
     return news
