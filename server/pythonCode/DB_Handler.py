@@ -1,22 +1,14 @@
 from pymongo import MongoClient
-from gridfs import GridFS
 import configparser
 
 class DBHandler:
     def __init__(self):
         config = configparser.ConfigParser()
-        config.read('../conf/config.ini')
+        config.read('conf/config.ini')
         host = config['MONGODB']['host']
         port = config['MONGODB']['port']
 
         self.client = MongoClient(host, int(port))
-        self.fs = GridFS(self.client['news'])
-
-    # def put(self, data, **kwargs):
-    #     self.fs.put(data, **kwargs)
-    #
-    # def put(self, **kwargs):
-    #     self.
 
     def insert_item(self, data, db_name=None, collection_name=None):
         return self.client[db_name][collection_name].insert_one(data).inserted_id

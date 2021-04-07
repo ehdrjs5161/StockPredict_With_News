@@ -42,6 +42,7 @@ class companys:
             print("Update News & Price")
             begin = self.update_day + datetime.timedelta(days=1)
             self.newNews = getNews.crawling(name=self.name, begin=method.date_to_str(begin), end=method.date_to_str(yesterday))
+            self.newNews = method.sent_result(self.newNews[['Date', 'Label']])
             newNews = method.csv_to_json(self.newNews)
 
             for news in newNews:
@@ -50,7 +51,7 @@ class companys:
 
             temp = getPrice.stock_price(self.code, begin=self.update_day)
             temp.to_csv("file/price/"+self.code+".csv", encoding="UTF-8")
-            self.newPrice = pd.read_csv("price/"+self.code+".csv", encoding="UTF-8")[['Date', 'High', 'Low', 'Open', 'Close', 'Volume']]
+            self.newPrice = pd.read_csv("file/price/"+self.code+".csv", encoding="UTF-8")[['Date', 'High', 'Low', 'Open', 'Close', 'Volume']]
             newPrice = method.csv_to_json(self.newPrice)
 
             for price in newPrice:
@@ -101,17 +102,17 @@ class companys:
             #     print("Load model..")
             #     self.model_day7 = modeling.load_model(self.code, predict_day=7, features=features)
 
-    def predict_price_day1(self):
+    def predict_day1(self):
         self.result_day1 = modeling.predict_day1(self)
 
-    def predict_price_day7(self):
-        self.result_day7 = modeling.predict_day7(self)
+    # def predict_price_day7(self):
+    #     self.result_day7 = modeling.predict_day7(self)
 
     def test_predict_day1(self):
         modeling.test_day1(self)
 
-    def test_predict_day7(self):
-        modeling.test_day7(self)
+    # def test_predict_day7(self):
+        # modeling.test_day7(self)
 
     def model_update(self):
         # 한번 모델링 해놓으면 당분간 안해도 됨.
@@ -124,24 +125,13 @@ class companys:
 
         company["name"] = self.name
         company["code"] = self.code
-        rate['code'] = self.code
-        rate['name'] = self.name
-        temp = []
-        for i in range(0, len(self.result_day1['Time'])):
-            price = {'Date': '{}'.format(self.result_day1['Time'][i]),
-                     'Price': '{}'.format(int(self.result_day1['Price'][i]))}
-            temp.append(price)
-        company['price_day1'] = temp
-
-        temp = []
+        # temp = []
         # for i in range(0, len(self.result_day7['Time'])):
         #     price = {'Date': '{}'.format(self.result_day7['Time'][i]),
         #              'Price': '{}'.format(int(self.result_day7['Price'][i]))}
         #     temp.append(price)
         # company['price_day7'] = temp
-
-        company['predict_day1'] = int(self.result_day1['Predict'][0][0])
-
+        company['predict'] = int(self.result_day1['Predict'][0][0])
         # temp = []
         # for i in range(0, len(self.result_day7['Predict'][0])):
         #     predict = {'Date': '{}'.format(str(i + 1) + " day After"),
@@ -149,22 +139,19 @@ class companys:
         #     temp.append(predict)
         #
         # company['predict_day7'] = temp
-
         last_price1 = self.result_day1['Price'][-1]
-        rate1 = 100 * (company['predict_day1'] - last_price1) / last_price1
-        rate['predict_rate1'] = round(rate1, 2)
+        rate = 100 * (company['predict'] - last_price1) / last_price1
+        # temp = []
+        # for i in range(len(self.result_day7['Predict'][0])):
+        #     if i == 0:
+        #         rate2 = round(100 * (self.result_day7['Predict'][0][1] - self.result_day7['Price'][-1]) /
+        #                       self.result_day7['Price'][-1], 2)
+        #     else:
+        #         rate2 = round(100 * (self.result_day7['Predict'][0][i] - self.result_day7['Predict'][0][i - 1]) /
+        #                       self.result_day7['Predict'][0][i - 1], 2)
+        #     temp.append(rate2)
+        # rate['predict_rate2'] = temp
+        company['rate'] = round(rate, 2)
 
-        temp = []
-        for i in range(len(self.result_day7['Predict'][0])):
-            if i == 0:
-                rate2 = round(100 * (self.result_day7['Predict'][0][1] - self.result_day7['Price'][-1]) /
-                              self.result_day7['Price'][-1], 2)
-            else:
-                rate2 = round(100 * (self.result_day7['Predict'][0][i] - self.result_day7['Predict'][0][i - 1]) /
-                              self.result_day7['Predict'][0][i - 1], 2)
-            temp.append(rate2)
-        rate['predict_rate2'] = temp
-        company['rate'] = rate
+        mongo.update_item(condition={"code": "{}".format(self.code)}, update_value={'$set': company}, db_name=db_name, collection_name="predictResult")
 
-        mongo.update_item(condition={"code": "{}".format(self.code)}, update_value=company, db_name=db_name, collection_name="predictResult")
-        mongo.update_item(condition={"code": "{}".format(self.code)}, update_value=rate, db_name=db_name, collection_name="rank")

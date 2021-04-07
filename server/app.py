@@ -28,27 +28,20 @@ def predict(code):
     comp = company.companys(name=name, code=code)
     comp.load_data()
     update = method.date_to_str(datetime.datetime.today() - datetime.timedelta(days=1))
+    print(code)
     print(update, comp.update_day)
 
     if update != comp.update_day:
-        # comp.update_data()
-        print(len(comp.news), len(comp.price))
+        comp.update_data()
         comp.model_setting(10, 28, 3)
-        # comp.test_predict_day1()
-        # comp.result_save()
+        comp.test_predict_day1()
+
+        comp.predict_day1()
+        comp.result_save()
 
     result = mongo.find_item(condition={"code": "{}".format(comp.code)}, db_name="stockPredict", collection_name="predictResult")
     del result['_id']
-    temp = OrderedDict()
-    temp['code'] = result['code']
-    temp['name'] = result['name']
-    price = []
-    date = []
-    for p in result['price_day1']:
-        price.append(int(p['Price']))
-        date.append(p['Date'])
-    temp['price'] = price
-    temp['date'] = date
+
     return result
 
 @app.route('/rank', methods=['GET', 'POST'])
@@ -63,4 +56,4 @@ def rank():
     return result
 
 if __name__ == "__main__":
-    predict("068270")
+    predict("005930")

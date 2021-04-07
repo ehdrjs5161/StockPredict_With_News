@@ -31,7 +31,6 @@ def create_dataset(data, term, predict_days):
     return x_ary, y_ary
 
 def load_model(code, predict_day, features):
-    print(code, predict_day)
     try:
         if features == 2:
             if predict_day == 1:
@@ -47,7 +46,6 @@ def load_model(code, predict_day, features):
                 model = keras.models.load_model("model/model_day7/withNews/" + code)
             else:
                 print("Deep Learning Model Not Found Error")
-        plot_model(model, to_file="modeling.png", show_shapes=True, rankdir='TB')
         return model
 
     except FileNotFoundError as e:
@@ -62,14 +60,14 @@ def modeling(batch, term, features):
     model.compile(optimizer='adam', loss='mse')
     return model
 
-def modeling_day7(batch, term, features):
-    model = keras.Sequential()
-    model.add(keras.layers.LSTM(512, batch_input_shape=(batch, term, features), return_sequences=True))
-    model.add(keras.layers.Dropout(0.3))
-    model.add(keras.layers.LSTM(512))
-    model.add(keras.layers.Dense(7, activation='linear', kernel_initializer=tf.initializers.zeros))
-    model.compile(optimizer='adam', loss='mse')
-    return model
+# def modeling_day7(batch, term, features):
+#     model = keras.Sequential()
+#     model.add(keras.layers.LSTM(512, batch_input_shape=(batch, term, features), return_sequences=True))
+#     model.add(keras.layers.Dropout(0.3))
+#     model.add(keras.layers.LSTM(512))
+#     model.add(keras.layers.Dense(7, activation='linear', kernel_initializer=tf.initializers.zeros))
+#     model.compile(optimizer='adam', loss='mse')
+#     return model
 
 def modeling_nlp(max_words):
     model = keras.Sequential()
@@ -100,29 +98,28 @@ def model_educate(company, term, batch, predict_day):
     Scaler.fit(data)
     data = Scaler.fit_transform(data)
 
-    train_data = data[:int(len(data) * 0.9)]
+    train_data = data[:int(len(data) * 0.8)]
+    val_data = data[int(len(data) * 0.8):int(len(data)*0.9)]
 
     train_x, train_y = create_dataset(train_data, term, predict_day)
     batch_point = method.re_sizing(batch, train_x)
     train_x = train_x[batch_point:]
     train_y = train_y[batch_point:]
 
-    print(train_x.shape, train_y.shape)
-
     if company.features == 2:
         if predict_day == 1:
             history = model.fit(train_x, train_y, epochs=50, batch_size=batch, verbose=0)
             model.save("model/model_day1/"+company.code)
-        elif predict_day==7:
-            history = model.fit(train_x, train_y, epochs=50, batch_size=batch)
-            model.save("model/model_day7/" + company.code)
+        # elif predict_day==7:
+        #     history = model.fit(train_x, train_y, epochs=50, batch_size=batch)
+        #     model.save("model/model_day7/" + company.code)
     else:
         if predict_day == 1:
             history = model.fit(train_x, train_y, epochs=50, batch_size=batch)
             model.save("model/model_day1/withNews/" + company.code)
-        elif predict_day == 7:
-            history = model.fit(train_x, train_y, epochs=50, batch_size=batch)
-            model.save("model/model_day7/withNews/" + company.code)
+        # elif predict_day == 7:
+        #     history = model.fit(train_x, train_y, epochs=50, batch_size=batch)
+        #     model.save("model/model_day7/withNews/" + company.code)
         else:
             print("predict_day Setting Error!")
 
@@ -133,14 +130,7 @@ def model_educate(company, term, batch, predict_day):
     plt.legend()
     plt.show()
 
-
     return model
-
-def update_model(company):
-    model_day1 = company.model_day1
-    model_day7 = company.model_day7
-
-    return model_day1, model_day7
 
 def test_day1(company):
     model = company.model_day1
@@ -149,7 +139,6 @@ def test_day1(company):
     elif company.features == 3:
         news = method.sent_result(company.news[['Date', 'Label']])
         data = method.merge(news, company.price[['Date', 'Close', 'Volume']], "Date", "Date")
-    print(len(data))
     price = data['Close']
     time = data['Date']
     data = data[int(len(data)*0.9):]
@@ -173,9 +162,9 @@ def test_day1(company):
         time.append(method.date_to_str(timeline.iloc[i]))
     result = {'Time': timeline, 'Price': close, 'Predict': real_prediction}
     # fig = go.Figure()
-    # fig.add_trace(go.Scatter(x=timeline[:28], y=price, mode='lines', name="price"))
-    # fig.add_trace(go.Scatter(x=timeline[29:], y=close[29:], mode="lines", name="Actual"))
-    # fig.add_trace(go.Scatter(x=timeline[29:], y=real_prediction, mode="lines", name="Predict"))
+    # fig.add_trace(go.Scatter(x=timeline, y=price, mode='lines', name="price"))
+    # fig.add_trace(go.Scatter(x=timeline, y=close[29:], mode="lines", name="Actual"))
+    # fig.add_trace(go.Scatter(x=timeline, y=real_prediction, mode="lines", name="Predict"))
     # fig.update_layout(title='<b>Stock Predict</b>')
     # fig.show()
     score = model.evaluate(x_data, y_data, batch_size=1)
@@ -232,7 +221,7 @@ def predict_day1(company):
     normed_data = Scaler.fit_transform(data)
     x_data, y_data = create_dataset(normed_data, 28, 1)
     predictions = model.predict(x_data, batch_size=1)
-    real_prediction =method.inverseTransform(Scaler, predictions)
+    real_prediction =method.inverseTransform(Scaler, predictions, features=company.features)
     real_prediction = list(real_prediction)
 
     time = []
@@ -302,7 +291,3 @@ def view_overall(days, actual, predict, name):
     plt.title(name+"s Close(KRW)")
     plt.show()
 
-def view_overallDay7(days, actual, predict, name):
-    plt.figure(figsize=(16, 9))
-    plt.plot(days, actual, label="Actual")
-    plt.plot(days, predict, label="Predict")

@@ -39,14 +39,26 @@ def load_data(company):
     price = mongo.find_item(condition={"code": "{}".format(code)}, db_name=db_name, collection_name="price")
 
     if news is None:
-        today = method.date_to_str(datetime.datetime.today())
-        news = getNews.crawling(company.name, begin="2012-01-01", end=today)
-        news_json = csv_to_json(news)
-        news_input = OrderedDict()
-        news_input['code'] = code
-        news_input['news'] = news_json
-        mongo.insert_item(data=news_input, db_name=db_name, collection_name="news")
-        news = news
+        if os.path.isfile("file/news/"+ company.code+".csv"):
+            print("Find new csv file")
+            news = pd.read_csv("file/news/" + company.code + ".csv")[['Date', 'Title', 'Label']]
+            news = sent_result(news[['Date', 'Label']])
+            news_json = csv_to_json(news)
+            news_input = OrderedDict()
+            news_input['code'] = code
+            news_input['news'] = news_json
+            mongo.insert_item(data=news_input, db_name=db_name, collection_name="news")
+
+        else:
+            today = method.date_to_str(datetime.datetime.today())
+            news = getNews.crawling(company.name, begin="2012-01-01", end=today)
+            news = method.sent_result(news[['Date', 'Label']])
+            news_json = csv_to_json(news)
+            news_input = OrderedDict()
+            news_input['code'] = code
+            news_input['news'] = news_json
+            mongo.insert_item(data=news_input, db_name=db_name, collection_name="news")
+            news = news
     else:
         news = pd.DataFrame(news['news'])
 
@@ -62,8 +74,6 @@ def load_data(company):
         price = price
     else:
         price = pd.DataFrame(price['price'])
-
-    news.drop_duplicates(['Title'], inplace=True)
 
     return news, price
 

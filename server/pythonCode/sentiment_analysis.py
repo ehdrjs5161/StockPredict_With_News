@@ -6,8 +6,7 @@ def set_word_list():
     positive = []
     negative = []
     total = []
-    pos = codecs.open("../file/NLP/positive_words_self.txt", 'rb', encoding="UTF-8")
-    # pos = codecs.open("../file/NLP/positive_words_self.txt", 'rb', encoding="UTF-8")
+    pos = codecs.open("file/NLP/positive_words_self.txt", 'rb', encoding="UTF-8")
 
     while True:
         line = pos.readline()
@@ -19,9 +18,9 @@ def set_word_list():
             break
     pos.close()
 
-    neg = codecs.open("../file/NLP/negative_words_self.txt", 'rb', encoding="UTF-8")
-    # neg = codecs.open("../file/NLP/negative_words_self.txt", 'rb', encoding="UTF-8")
-    #
+    neg = codecs.open(""
+                      "file/NLP/negative_words_self.txt", 'rb', encoding="UTF-8")
+
     while True:
         line = neg.readline()
         line = line.replace("\n", "")
@@ -70,5 +69,4 @@ def labeling(news):
         sent = analysis(title, pos, neg, total)
         label.append(classify(sent))
     news = pd.DataFrame({'Date': news['Date'], 'Title': titles, 'Label': label})
-    # news = pd.DataFrame({'Title': titles, 'Label': label})
     return news
