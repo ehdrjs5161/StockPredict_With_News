@@ -3,10 +3,8 @@ import configparser
 
 class DBHandler:
     def __init__(self):
-        config = configparser.ConfigParser()
-        config.read('conf/config.ini')
-        host = config['MONGODB']['host']
-        port = config['MONGODB']['port']
+        host = 'localhost'
+        port = 27017
 
         self.client = MongoClient(host, int(port))
 

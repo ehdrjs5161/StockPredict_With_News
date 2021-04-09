@@ -1,10 +1,11 @@
 from flask import Flask, request, jsonify
 import pandas as pd
-import pythonCode.DB_Handler as DB_Handler
-import pythonCode.method as method
-import pythonCode.company as company
+from pythonCode import DB_Handler as DB_Handler
+from pythonCode import method as method
+from pythonCode import company as company
 import datetime
 from collections import OrderedDict
+
 mongo = DB_Handler.DBHandler()
 
 app = Flask(__name__, static_folder='server/pythonCode')
@@ -33,16 +34,13 @@ def predict(code):
 
     if update != comp.update_day:
         comp.update_data()
-        comp.model_setting(10, 28, 3)
-        comp.test_predict_day1()
+    comp.model_setting(10, 28, 3)
+    comp.test_predict_day1()
 
-        comp.predict_day1()
-        comp.result_save()
-
-    result = mongo.find_item(condition={"code": "{}".format(comp.code)}, db_name="stockPredict", collection_name="predictResult")
-    del result['_id']
-
-    return result
+    # result = mongo.find_item(condition={"code": "{}".format(comp.code)}, db_name="stockPredict", collection_name="predictResult")
+    # del result['_id']
+    #
+    # return result
 
 @app.route('/rank', methods=['GET', 'POST'])
 def rank():
@@ -56,4 +54,7 @@ def rank():
     return result
 
 if __name__ == "__main__":
-    predict("005930")
+    kospi = mongo.find_items(db_name="stockPredict", collection_name="code")
+    kospi = pd.DataFrame(kospi)[['code', 'name']]
+    for code in kospi['code']:
+        predict(code)

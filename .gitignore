@@ -2,6 +2,9 @@ client/node_modules
 server/model/model_day1
 server/model/model_day7
 server/pythonCode/test__file.py
+server/pythonCode/naverAPI.py
+server/pythonCode/plotlytest01.py
+server/pythonCode/kospi_test_result.csv
 server/file/news
 server/file/price
 .idea/

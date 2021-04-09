@@ -77,14 +77,13 @@ def load_data(company):
 
     return news, price
 
-def swift_type(news):
-    days = []
-    for i in range(0, len(news)):
-        day = datetime.datetime.strptime(news[i], "%Y.%m.%d").strftime("%Y-%m-%d")
-        days.append(day)
-    news['date'] = days
-
-    return news
+def find_idx(data, begin_date):
+    idx = 0
+    for i in range(0, len(data)):
+        if method.str_to_date(data['Date'].iloc[i]) >= method.str_to_date(begin_date):
+            idx = i
+            break
+    return idx
 
 def str_to_date(string):
     date = datetime.datetime.strptime(string, "%Y-%m-%d")

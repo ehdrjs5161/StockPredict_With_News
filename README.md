@@ -10,9 +10,7 @@
 
 * TensorFlow
 
-* Flask
-
-* React.js
+* Plotly
 
 * numpy
 
@@ -38,7 +36,9 @@
 
 # 웹 (Web)
 
-* python 기반의 코드 실행을 위해 Flask로 서버 구축
+* Plotly와 Dash를 이용한 그래프 시각화 및 python 기반 웹 어플리케이션 구축 
 
-* React.js를 이용하여 UI 제공
+# 실행방법 
+
+* pythonCode 내부의 plotlyApp.py를 실행
 

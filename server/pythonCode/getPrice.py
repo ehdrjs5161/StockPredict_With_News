@@ -3,7 +3,7 @@ import pandas as pd
 import os
 from pykrx import stock
 import datetime
-from . import method
+from server.pythonCode import method
 
 
 def stock_price(code, begin):
@@ -33,8 +33,7 @@ def market_info (code, begin):
 
 
 if __name__ =="__main__":
-    kospi200 = pd.read_csv("../file/KOSPI200.csv", encoding="UTF-8")[['종목코드', '기업명']]
-    for code, name in zip(kospi200['종목코드'], kospi200['기업명']):
-        market = market_info(code, "20120101")
-        market.to_csv("../market_info/"+method.set_code(code)+".csv", encoding="UTF-8")
-        print(method.set_code(code)+"'s market_info completed")
+    kospi200 = pd.read_csv("../file/KOSPI200.csv", encoding="UTF-8")[['code', 'name']]
+    for code in kospi200['code']:
+        temp = stock_price(code, "2012-01-01")
+        temp.to_csv("../file/price/"+method.set_code(code)+".csv")

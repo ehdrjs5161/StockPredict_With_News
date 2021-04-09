@@ -15,11 +15,6 @@
         <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
       </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin2" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
     </expand>
     <select />
   </component>
@@ -27,16 +22,119 @@
     <list default="true" id="0b814f35-c772-4d9b-ada7-f82a00ecf975" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/file/news/068270.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/news/068270.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/file/news/processed_news/068270.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/000100.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/000100.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/000120.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/000120.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/000210.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/000210.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/000270.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/000270.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/000660.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/000660.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/000720.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/000720.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/000810.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/000810.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/000990.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/000990.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/001040.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/001040.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/002790.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/002790.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/003090.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/003090.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/003410.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/003410.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/003490.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/003490.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/003550.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/003550.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/003670.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/003670.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/004020.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/004020.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/004990.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/004990.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/005380.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/005380.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/005490.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/005490.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/005830.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/005830.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/file/price/005930.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/005930.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/005940.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/005940.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/006280.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/006280.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/006360.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/006360.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/006400.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/006400.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/006800.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/006800.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/007070.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/007070.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/008770.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/008770.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/008930.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/008930.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/009150.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/009150.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/009540.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/009540.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/009830.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/009830.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/010130.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/010130.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/010140.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/010140.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/010950.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/010950.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/011070.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/011070.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/011170.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/011170.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/011200.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/011200.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/011780.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/011780.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/011790.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/011790.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/012330.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/012330.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/012750.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/012750.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/015760.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/015760.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/016360.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/016360.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/017670.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/017670.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/018260.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/018260.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/018880.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/018880.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/019170.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/019170.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/020150.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/020150.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/021240.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/021240.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/023530.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/023530.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/024110.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/024110.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/026960.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/026960.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/028260.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/028260.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/029780.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/029780.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/030200.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/030200.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/032640.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/032640.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/032830.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/032830.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/033780.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/033780.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/034020.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/034020.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/034220.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/034220.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/034730.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/034730.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/035250.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/035250.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/035420.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/035420.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/035720.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/035720.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/036460.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/036460.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/036570.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/036570.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/039490.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/039490.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/042660.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/042660.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/047810.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/047810.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/051900.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/051900.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/051910.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/051910.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/055550.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/055550.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/066570.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/066570.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/file/price/068270.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/068270.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/071050.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/071050.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/078930.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/078930.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/081660.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/081660.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/086280.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/086280.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/086790.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/086790.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/090430.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/090430.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/096770.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/096770.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/097950.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/097950.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/105560.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/105560.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/112610.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/112610.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/128940.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/128940.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/139480.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/139480.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/161390.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/161390.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/180640.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/180640.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/204320.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/204320.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/207940.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/207940.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/241560.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/241560.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/251270.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/251270.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/267250.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/267250.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/271560.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/271560.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/285130.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/285130.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/316140.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/316140.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/326030.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/326030.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/336260.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/336260.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/file/price/352820.csv" beforeDir="false" afterPath="$PROJECT_DIR$/server/file/price/352820.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/pythonCode/DB_Handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/DB_Handler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/pythonCode/company.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/company.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/pythonCode/getNews.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/getNews.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/pythonCode/getPrice.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/getPrice.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/pythonCode/method.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/method.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/pythonCode/modeling.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/modeling.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/pythonCode/sentiment_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/sentiment_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/test_result/NLP_result.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/test_result/NLP_result2.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/test_result/fit_on_test.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/test_result/fit_on_train.csv" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,33 +164,12 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\pythonProject\Stock_predict\server" />
       <recent name="C:\pythonProject\Stock_predict\server\pythonCode" />
+      <recent name="C:\pythonProject\Stock_predict\server" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.app (1)">
-    <configuration name="app (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Stock_predict" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/server" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/server/app.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.plotlyApp">
+    <configuration name="getPrice" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Stock_predict" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -104,7 +181,70 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\pythonProject\Stock_predict\server\app.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/server/pythonCode/getPrice.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="plotlyApp" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Stock_predict" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/server/pythonCode" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\pythonProject\Stock_predict\server\pythonCode\plotlyApp.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="plotlytest01" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Stock_predict" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/server/pythonCode" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\pythonProject\Stock_predict\server\pythonCode\plotlytest01.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="plotlytest01" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Stock_predict" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/server/pythonCode" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\pythonProject\Stock_predict\server\pythonCode\plotlytest01.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -136,9 +276,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.app (1)" />
+        <item itemvalue="Python.plotlyApp" />
+        <item itemvalue="Python.plotlytest01" />
         <item itemvalue="Python.test__file" />
-        <item itemvalue="Python.app" />
+        <item itemvalue="Python.getPrice" />
+        <item itemvalue="Python.plotlytest01" />
       </list>
     </recent_temporary>
   </component>
@@ -166,22 +308,26 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1899" height="172" key="GridCell.Tab.0.bottom" timestamp="1617780943677">
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1617905411814">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="172" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1617780943677" />
-    <state width="1899" height="172" key="GridCell.Tab.0.center" timestamp="1617780943677">
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617905411814" />
+    <state width="936" height="234" key="GridCell.Tab.0.bottom" timestamp="1617976138592">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="172" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1617780943677" />
-    <state width="1899" height="172" key="GridCell.Tab.0.left" timestamp="1617780943677">
+    <state width="936" height="234" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1617976138592" />
+    <state width="936" height="234" key="GridCell.Tab.0.center" timestamp="1617976138592">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="172" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1617780943677" />
-    <state width="1899" height="172" key="GridCell.Tab.0.right" timestamp="1617780943677">
+    <state width="936" height="234" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1617976138592" />
+    <state width="936" height="234" key="GridCell.Tab.0.left" timestamp="1617976138592">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="172" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1617780943677" />
+    <state width="936" height="234" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1617976138592" />
+    <state width="936" height="234" key="GridCell.Tab.0.right" timestamp="1617976138592">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="936" height="234" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1617976138592" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1617803004165">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

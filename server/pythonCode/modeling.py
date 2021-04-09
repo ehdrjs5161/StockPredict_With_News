@@ -1,16 +1,14 @@
 import tensorflow as tf
 from tensorflow import keras
-from tensorflow.keras.utils import plot_model
+from silence_tensorflow import silence_tensorflow
 import pandas as pd
 import numpy as np
 from . import method
 from sklearn.preprocessing import MinMaxScaler
 from matplotlib import pyplot as plt
-import cufflinks as cf
-import pydot
-import graphviz
+import os
 
-cf.go_offline(connected=True)
+silence_tensorflow()
 
 gpus = tf.config.experimental.list_physical_devices('GPU')
 if gpus:
@@ -34,14 +32,14 @@ def load_model(code, predict_day, features):
     try:
         if features == 2:
             if predict_day == 1:
-                model = keras.models.load_model("model/model_day1/"+code)
+                model = keras.models.load_model("../model/model_day1/"+code)
             elif predict_day == 7:
                 model = keras.models.load_model("model/model_day7/"+code)
             else:
                 print("Deep Learning Model Not Found Error")
         else:
             if predict_day == 1:
-                model = keras.models.load_model("model/model_day1/withNews/" + code)
+                model = keras.models.load_model("../model/model_day1/withNews/" + code)
             elif predict_day == 7:
                 model = keras.models.load_model("model/model_day7/withNews/" + code)
             else:
@@ -92,14 +90,17 @@ def model_educate(company, term, batch, predict_day):
     elif company.features == 3:
         news = method.sent_result(company.news[['Date', 'Label']])
         data = method.merge(news, company.price[['Date', 'Close', 'Volume']], "Date", "Date")
-    data = data[:int(len(data)*0.9)]
+    if len(data) > 1000:
+        data = data[:int(len(data)*0.8)]
+    elif len(data) > 560:
+        data = data[:int(len(data)*0.5)]
+
     timeline = pd.to_datetime(data.pop("Date"), format="%Y-%m-%d")
     Scaler = MinMaxScaler(feature_range=(0, 1))
     Scaler.fit(data)
     data = Scaler.fit_transform(data)
 
     train_data = data[:int(len(data) * 0.8)]
-    val_data = data[int(len(data) * 0.8):int(len(data)*0.9)]
 
     train_x, train_y = create_dataset(train_data, term, predict_day)
     batch_point = method.re_sizing(batch, train_x)
@@ -122,14 +123,12 @@ def model_educate(company, term, batch, predict_day):
         #     model.save("model/model_day7/withNews/" + company.code)
         else:
             print("predict_day Setting Error!")
-
-    plt.figure(figsize=(16, 9))
-    plt.plot(history.history['loss'], label="loss")
-    plt.xlabel("epoch")
-    plt.ylabel("loss")
-    plt.legend()
-    plt.show()
-
+    # plt.figure(figsize=(16, 9))
+    # plt.plot(history.history['loss'], label="loss")
+    # plt.xlabel("epoch")
+    # plt.ylabel("loss")
+    # plt.legend()
+    # plt.show()
     return model
 
 def test_day1(company):
@@ -141,7 +140,10 @@ def test_day1(company):
         data = method.merge(news, company.price[['Date', 'Close', 'Volume']], "Date", "Date")
     price = data['Close']
     time = data['Date']
-    data = data[int(len(data)*0.9):]
+    if company.code != "005930":
+        data = data[int(len(data)*0.5):]
+    else:
+        data = data[int(len(data)*0.8):]
 
     close = data['Close']
     timeline = pd.to_datetime(data.pop("Date"), format="%Y-%m-%d")
@@ -160,48 +162,54 @@ def test_day1(company):
     time = []
     for i in range(0, len(timeline)):
         time.append(method.date_to_str(timeline.iloc[i]))
-    result = {'Time': timeline, 'Price': close, 'Predict': real_prediction}
-    # fig = go.Figure()
-    # fig.add_trace(go.Scatter(x=timeline, y=price, mode='lines', name="price"))
-    # fig.add_trace(go.Scatter(x=timeline, y=close[29:], mode="lines", name="Actual"))
-    # fig.add_trace(go.Scatter(x=timeline, y=real_prediction, mode="lines", name="Predict"))
-    # fig.update_layout(title='<b>Stock Predict</b>')
-    # fig.show()
+
     score = model.evaluate(x_data, y_data, batch_size=1)
+    score = round(score, 7)
     print(score)
-    view_overall(timeline, close, real_prediction, company.name)
+    if os.path.isfile("kospi_test_result.csv"):
+        record = pd.read_csv("kospi_test_result.csv")[['code', 'name', 'loss']]
+        result = pd.DataFrame({"code": company.code, "name": company.name, "loss": score}, index=[0])
+        record = pd.concat([record, result])
+        record.reset_index(inplace=True)
+        record.to_csv("kospi_test_result.csv", encoding="utf-8-sig")
+    else:
+        record = pd.DataFrame({"code": company.code, "name": company.name, "loss": score}, index=[0])
+        record.to_csv("kospi_test_result.csv", encoding="utf-8-sig")
+    print(real_prediction)
+    # view_overall(time, close, real_prediction, company.name)
+    return list(time), list(close), list(real_prediction)
 
-def test_day7(company):
-    model = company.model_day7
-    if company.features == 2:
-        data = company.price[['Date', 'Close', 'Volume']]
-    elif company.features == 3:
-        news = method.sent_result(company.news[['Date', 'Label']])
-        data = method.merge(news, company.price[['Date', 'Close', 'Volume']], "Date", "Date")
-    price = data['Close']
-    time = data['Date']
-    data = data[int(len(data) * 0.9):]
-    close = data['Close']
-    timeline = pd.to_datetime(data.pop("Date"), format="%Y-%m-%d")
-
-    Scaler = MinMaxScaler(feature_range=(0, 1))
-    Scaler.fit(data)
-    normed_data = Scaler.fit_transform(data)
-    x_data, y_data = create_dataset(normed_data, 28, 7)
-    timeline = timeline[28:]
-    close = close[28:]
-    predictions = model.predict(x_data, batch_size=1)
-    real_prediction = method.inverseTransform(Scaler, predictions, features=company.features)
-
-    time = []
-    for i in range(0, len(timeline)):
-        time.append(method.date_to_str(timeline.iloc[i]))
-    result = {'Time': timeline, 'Price': close, 'Predict': real_prediction}
-    score = model.evaluate(x_data, y_data, batch_size=1)
-    print(score)
-    # view_overall(timeline, actual=price, predict=real_prediction, name=company.name)
-    # print(len(timeline), len(close), len(real_prediction))
-    # view_day7(timeline, close, real_prediction, company.name)
+# def test_day7(company):
+#     model = company.model_day7
+#     if company.features == 2:
+#         data = company.price[['Date', 'Close', 'Volume']]
+#     elif company.features == 3:
+#         news = method.sent_result(company.news[['Date', 'Label']])
+#         data = method.merge(news, company.price[['Date', 'Close', 'Volume']], "Date", "Date")
+#     price = data['Close']
+#     time = data['Date']
+#     data = data[int(len(data) * 0.9):]
+#     close = data['Close']
+#     timeline = pd.to_datetime(data.pop("Date"), format="%Y-%m-%d")
+#
+#     Scaler = MinMaxScaler(feature_range=(0, 1))
+#     Scaler.fit(data)
+#     normed_data = Scaler.fit_transform(data)
+#     x_data, y_data = create_dataset(normed_data, 28, 7)
+#     timeline = timeline[28:]
+#     close = close[28:]
+#     predictions = model.predict(x_data, batch_size=1)
+#     real_prediction = method.inverseTransform(Scaler, predictions, features=company.features)
+#
+#     time = []
+#     for i in range(0, len(timeline)):
+#         time.append(method.date_to_str(timeline.iloc[i]))
+#     result = {'Time': timeline, 'Price': close, 'Predict': real_prediction}
+#     score = model.evaluate(x_data, y_data, batch_size=1)
+#     print(score)
+#     view_overall(timeline, actual=price, predict=real_prediction, name=company.name)
+#     print(len(timeline), len(close), len(real_prediction))
+#     view_day7(timeline, close, real_prediction, company.name)
 
 def predict_day1(company):
     model = company.model_day1
@@ -228,8 +236,6 @@ def predict_day1(company):
     for i in range(0, len(timeline)):
         time.append(method.date_to_str(timeline.iloc[i]))
     result = {'Time': time, 'Price': close, 'Predict': real_prediction}
-    # view_day1(time, close, real_prediction, company.name)
-    # view_overall(time, close, real_prediction, company.name)
     return result
 
 def predict_day7(company):
@@ -256,7 +262,6 @@ def predict_day7(company):
     for i in range(0, len(timeline)):
         time.append(method.date_to_str(timeline.iloc[i]))
     result = {'Time': time, 'Price': close, 'Predict': real_prediction}
-    view_day7(time, close, real_prediction, company.name)
     return result
 
 def view_day1(time, actual, predict, name):
@@ -268,18 +273,7 @@ def view_day1(time, actual, predict, name):
     plt.ylabel("Close Price(KRW)")
     plt.title(name+"'s Predicted next day's Close(￦)")
     plt.legend()
-    plt.show()
-
-def view_day7(days, actual, predict, name):
-    plt.figure(figsize=(18, 9))
-    plt.plot(days[:28], actual[:28], label="price")
-    plt.scatter(days[28:], actual[28:], label="Actual", edgecolors='k', c='#2ca02c', s=100)
-    plt.scatter(days[28:], predict, label="Predict", edgecolors='k', marker='X', c='#ff7f0e', s=100)
-    plt.xlabel("Time")
-    plt.ylabel("Close Price(KRW)")
-    plt.legend()
-    plt.title(name+"'s Predicted next week's Close(￦)")
-    plt.show()
+    plt.savefig('test_result/'+name+".png")
 
 def view_overall(days, actual, predict, name):
     plt.figure(figsize=(16, 9))
@@ -289,5 +283,4 @@ def view_overall(days, actual, predict, name):
     plt.ylabel("Close(KRW)")
     plt.legend()
     plt.title(name+"s Close(KRW)")
-    plt.show()
-
+    plt.savefig("test_result/"+name+".png")

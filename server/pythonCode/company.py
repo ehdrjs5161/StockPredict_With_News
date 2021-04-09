@@ -1,6 +1,6 @@
 import pandas as pd
 import datetime
-from . import modeling, method, getNews, getPrice, DB_Handler
+from . import modeling, method, getNews, getPrice, DB_Handler ,naverAPI
 import os
 from collections import OrderedDict
 
@@ -13,17 +13,12 @@ class companys:
         self.name = name
         self.news =None
         self.price = None
-        self.label = None
         self.newNews = None
         self.newPrice = None
         self.features = None
         self.model_day1 = None
-        self.model_day7 = None
         self.result_day1 = None
-        self.result_day7 = None
         self.update_day = None
-        self.unit = None
-        self.epoch = None
 
     def load_data(self):
         self.news, self.price = method.load_data(self)
@@ -42,16 +37,21 @@ class companys:
             print("Update News & Price")
             begin = self.update_day + datetime.timedelta(days=1)
             self.newNews = getNews.crawling(name=self.name, begin=method.date_to_str(begin), end=method.date_to_str(yesterday))
-            self.newNews = method.sent_result(self.newNews[['Date', 'Label']])
-            newNews = method.csv_to_json(self.newNews)
-
-            for news in newNews:
-                mongo.update_item(condition={"code": "{}".format(self.code)}, update_value={'$push': {'news': news}}, db_name=db_name, collection_name="news")
-            self.news = pd.concat([self.news, self.newNews])
+            print(len(self.newNews))
+            if len(self.newNews) > 0:
+                self.newNews = method.sent_result(self.newNews[['Date', 'Label']])
+                newNews = method.csv_to_json(self.newNews)
+                for news in newNews:
+                    mongo.update_item(condition={"code": "{}".format(self.code)},
+                                      update_value={'$push': {'news': news}}, db_name=db_name, collection_name="news")
+                self.news = pd.concat([self.news, self.newNews])
+            # else:
+            #     print("using naverAPI")
+            #     self.newNews = naverAPI.get_news(self.name, begin=method.date_to_str(begin))
 
             temp = getPrice.stock_price(self.code, begin=self.update_day)
-            temp.to_csv("file/price/"+self.code+".csv", encoding="UTF-8")
-            self.newPrice = pd.read_csv("file/price/"+self.code+".csv", encoding="UTF-8")[['Date', 'High', 'Low', 'Open', 'Close', 'Volume']]
+            temp.to_csv("../file/price/"+self.code+".csv", encoding="UTF-8")
+            self.newPrice = pd.read_csv("../file/price/"+self.code+".csv", encoding="UTF-8")[['Date', 'High', 'Low', 'Open', 'Close', 'Volume']]
             newPrice = method.csv_to_json(self.newPrice)
 
             for price in newPrice:
@@ -84,13 +84,16 @@ class companys:
             #     self.model_day7 = modeling.load_model(self.code, predict_day=7, features=features)
             #     print("predict 7 day Model load completed!")
         else:
-            if not os.path.isfile("model/model_day1/withNews/" + self.code + "/saved_model.pb"):
-                print("predict 1 day Model Compiling...")
-                self.model_day1 = modeling.modeling(batch, term, self.features)
-                self.model_day1 = modeling.model_educate(self, term, batch, 1)
-            else:
-                self.model_day1 = modeling.load_model(self.code, predict_day=1, features=features)
-                print("predict 1 day Model load completed!")
+            self.model_day1 = modeling.load_model("005930", predict_day=1, features=features)
+            # if len(self.news) < 560:
+            #     self.model_day1 = modeling.load_model("005930", predict_day=1, features=self.features)  # 데이터가 부족한 종목의 경우 삼성전자 모델로 예측진행
+            # elif not os.path.isfile("model/model_day1/withNews/" + self.code + "/saved_model.pb"):
+            #     print("predict 1 day Model Compiling...")
+            #     self.model_day1 = modeling.modeling(batch, term, self.features)
+            #     self.model_day1 = modeling.model_educate(self, term, batch, 1)
+            # else:
+            #     self.model_day1 = modeling.load_model(self.code, predict_day=1, features=features)
+            #     print("predict 1 day Model load completed!")
 
             # if not os.path.isfile("model/model_day7/withNews/" + self.code + "/saved_model.pb"):
             #     print("predict 7 days Model Compiling...")
@@ -104,53 +107,19 @@ class companys:
 
     def predict_day1(self):
         self.result_day1 = modeling.predict_day1(self)
-
     # def predict_price_day7(self):
     #     self.result_day7 = modeling.predict_day7(self)
 
     def test_predict_day1(self):
         modeling.test_day1(self)
 
-    # def test_predict_day7(self):
-        # modeling.test_day7(self)
-
-    def model_update(self):
-        # 한번 모델링 해놓으면 당분간 안해도 됨.
-        self.model_day1, self.model_day7 = modeling.update_model(self)
-        print("Model Update Completed!")
-
     def result_save(self):
         company = OrderedDict()
-        rate = OrderedDict()
-
         company["name"] = self.name
         company["code"] = self.code
-        # temp = []
-        # for i in range(0, len(self.result_day7['Time'])):
-        #     price = {'Date': '{}'.format(self.result_day7['Time'][i]),
-        #              'Price': '{}'.format(int(self.result_day7['Price'][i]))}
-        #     temp.append(price)
-        # company['price_day7'] = temp
         company['predict'] = int(self.result_day1['Predict'][0][0])
-        # temp = []
-        # for i in range(0, len(self.result_day7['Predict'][0])):
-        #     predict = {'Date': '{}'.format(str(i + 1) + " day After"),
-        #                'Price': '{}'.format(int(self.result_day7["Predict"][0][i]))}
-        #     temp.append(predict)
-        #
-        # company['predict_day7'] = temp
         last_price1 = self.result_day1['Price'][-1]
         rate = 100 * (company['predict'] - last_price1) / last_price1
-        # temp = []
-        # for i in range(len(self.result_day7['Predict'][0])):
-        #     if i == 0:
-        #         rate2 = round(100 * (self.result_day7['Predict'][0][1] - self.result_day7['Price'][-1]) /
-        #                       self.result_day7['Price'][-1], 2)
-        #     else:
-        #         rate2 = round(100 * (self.result_day7['Predict'][0][i] - self.result_day7['Predict'][0][i - 1]) /
-        #                       self.result_day7['Predict'][0][i - 1], 2)
-        #     temp.append(rate2)
-        # rate['predict_rate2'] = temp
         company['rate'] = round(rate, 2)
 
         mongo.update_item(condition={"code": "{}".format(self.code)}, update_value={'$set': company}, db_name=db_name, collection_name="predictResult")

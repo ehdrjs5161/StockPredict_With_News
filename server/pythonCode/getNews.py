@@ -5,6 +5,8 @@ import datetime
 from . import sentiment_analysis as sent
 from bs4 import BeautifulSoup
 
+header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36'}
+
 def day_range(begin, end):
     day_list = []
     begin = datetime.datetime.strptime(begin, "%Y.%m.%d")
@@ -34,9 +36,9 @@ def parsing(name, begin, end):
         page = 0
         date = datetime.datetime.strptime(day, "%Y.%m.%d").strftime("%Y-%m-%d")
         while (True):
-            source_cde = requests.get(
-                url + day_url + ("l&mynews=0&cluster_rank=77&start={}&refresh_start=1".format(page * 10 + 1)))
-            html = BeautifulSoup(source_cde.content, "html.parser")
+            source_code = requests.get(
+                url + day_url + ("l&mynews=0&cluster_rank=77&start={}&refresh_start=1".format(page * 10 + 1)), headers=header)
+            html = BeautifulSoup(source_code.content, "html.parser")
             news = html.select("a.news_tit")
             point = html.select("div.not_found02")
             if point:
@@ -47,7 +49,7 @@ def parsing(name, begin, end):
                 title_result.append(i.attrs['title'])
                 link_result.append(i.attrs['href'])
             page = page + 1
-        time.sleep(0.0001)
+        time.sleep(1)
 
     frame = pd.DataFrame({'Date': date_result, 'Title': title_result})
     frame.drop_duplicates(['Title'], inplace=True)
