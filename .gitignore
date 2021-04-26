@@ -5,7 +5,7 @@ server/pythonCode/test__file.py
 server/pythonCode/naverAPI.py
 server/pythonCode/plotlytest01.py
 server/pythonCode/kospi_test_result.csv
-server/file/news
-server/file/price
+server/file/news/*
+server/file/price/
 .idea/
 .idea/workspace.xml

@@ -85,6 +85,8 @@ class companys:
             #     print("predict 7 day Model load completed!")
         else:
             self.model_day1 = modeling.load_model("005930", predict_day=1, features=features)
+            # self.model_day1 = modeling.modeling(batch, term, self.features)
+            # self.model_day1 = modeling.model_educate(self, term, batch, 1)
             # if len(self.news) < 560:
             #     self.model_day1 = modeling.load_model("005930", predict_day=1, features=self.features)  # 데이터가 부족한 종목의 경우 삼성전자 모델로 예측진행
             # elif not os.path.isfile("model/model_day1/withNews/" + self.code + "/saved_model.pb"):
@@ -111,7 +113,7 @@ class companys:
     #     self.result_day7 = modeling.predict_day7(self)
 
     def test_predict_day1(self):
-        modeling.test_day1(self)
+        return modeling.test_day1(self)
 
     def result_save(self):
         company = OrderedDict()

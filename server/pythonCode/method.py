@@ -132,12 +132,14 @@ def inverseTransform(Scaler, normed_data, features):
         temp = []
         for j in range(0, len(normed_data[0])):
             if features == 2:
-                temp.append(Scaler.inverse_transform([[normed_data[i][j], 0]])[0][0])
+                temp.append(int(Scaler.inverse_transform([[normed_data[i][j], 0]])[0][0][0]))
             elif features == 3:
-                temp.append(Scaler.inverse_transform([[normed_data[i][j], 0, 0]])[0][0])
+                temp.append(int(Scaler.inverse_transform([[normed_data[i][j], 0, 0]])[0][0]))
             else:
                 print("confirm # of features")
         real_data.append(temp)
+    temp = np.array(real_data)
+    real_data=temp.flatten()
     return real_data
 
 def inverseTransform_day7(Scaler, normed_data):

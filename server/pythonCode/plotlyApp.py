@@ -3,15 +3,9 @@ import dash_html_components as html
 import dash_core_components as dcc
 import pandas as pd
 from collections import OrderedDict
-import plotly_express as px
+import plotly.graph_objects as go
 from dash.dependencies import Output, Input
 from server.pythonCode import DB_Handler
-
-def get_price(code, name):
-    temp = mongo.find_item(condition={"code":"{}".format(code)}, db_name="stockPredict", collection_name="price")
-    result = pd.DataFrame(temp['price'])[['Date', 'Close']]
-    result = result.rename({"Date": "Date", 'Close': '{}'.format(name)}, axis="columns")
-    return result
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -25,26 +19,11 @@ for code, name in zip(kospi['code'], kospi['name']):
     temp['label'] = name
     temp['value'] = code
     options.append(temp)
-#
-#     result = mongo.find_item(condition={"code": "{}".format(code)}, db_name="stockPredict", collection_name="price")
-#     result = pd.DataFrame(result['price'])[['Date', 'Close']]
-#     result = result.rename({"Date": "Date", 'Close': '{}'.format(name)}, axis="columns")
-
-# def generate_table(dataframe, max_rows=100):
-#     return html.Table([
-#         html.Thead(
-#             html.Tr([html.Th(col) for col in dataframe.columns])
-#         ),
-#         html.Tbody([
-#             html.Tr([
-#                 html.Td(dataframe.iloc[i][col]) for col in dataframe.columns
-#             ]) for i in range(min(len(dataframe), max_rows))
-#         ])
-#     ])
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+
 app.layout = html.Div([
-    html.H1("StockPredict"),
+    html.H1("Stock Predict With News"),
     dcc.Dropdown(id="dropdown",
                  options=options,
                  value=options[0]['value'],
@@ -57,11 +36,16 @@ app.layout = html.Div([
     Output("Stock_Graph", "figure"),
     [Input("dropdown", "value")])
 def show_graph(dropdown):
-    result = mongo.find_item(condition={"code": "{}".format(dropdown)}, db_name="stockPredict", collection_name="price")
-    result = pd.DataFrame(result['price'])[['Date', 'Close']]
-    result = result.rename({"Date": "Date", 'Close': '{}'.format(dropdown)}, axis="columns")
-    fig = px.line(result, x='Date', y=dropdown)
+    result = mongo.find_item(condition={"code": "{}".format(dropdown)}, db_name="stockPredict", collection_name="testResult")
+    result = pd.DataFrame(result['result'])[['Date', 'Price', 'Predict']]
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=result['Date'], y=result['Predict'],
+                             mode='lines', name='Predict'))
+    fig.add_trace(go.Scatter(x=result['Date'], y=result['Price'],
+                             mode='lines', name='Price'))
     fig.update_layout(
+        template="plotly_white",
         xaxis=dict(
             rangeselector=dict(
                 buttons=list([
@@ -84,24 +68,11 @@ def show_graph(dropdown):
                     dict(step="all")
                 ])
             ),
-            type="date"
+            type="date",
         )
     )
+    fig.update_xaxes(rangeslider_visible=True)
     return fig
-# def update_graph(dropdwon_properties):
-#     selected_value = dropdwon_properties['value']
-#     temp = mongo.find_item(condition={"code": "{}".format(selected_value)}, db_name="stockPredict", collection_name="price")
-#     result = pd.DataFrame(temp['price'])[['Date', 'Close']]
-#
-#     return {
-#         'figure': go.Figure(
-#             data=[
-#                 go.Scatter(x=result.index,
-#                         y=result.Close,
-#                         name=selected_value)
-#             ]
-#         )
-#     }
 
 if __name__ == "__main__":
     app.run_server(debug=True)

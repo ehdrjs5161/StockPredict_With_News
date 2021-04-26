@@ -29,14 +29,20 @@ def predict(code):
     comp = company.companys(name=name, code=code)
     comp.load_data()
     update = method.date_to_str(datetime.datetime.today() - datetime.timedelta(days=1))
+    print("---------------------------------------------------------------------------")
     print(code)
     print(update, comp.update_day)
 
     if update != comp.update_day:
-        comp.update_data()
-    comp.model_setting(10, 28, 3)
-    comp.test_predict_day1()
-
+        # comp.update_data()
+        comp.model_setting(10, 28, 3)
+        frame = comp.test_predict_day1()
+        frame = method.csv_to_json(frame)
+        temp = OrderedDict()
+        temp['code'] = code
+        temp['result'] = frame
+        # print(temp)
+        mongo.update_item(condition={"code": "{}".format(code)}, update_value={'$set': temp}, db_name="stockPredict", collection_name="testResult")
     # result = mongo.find_item(condition={"code": "{}".format(comp.code)}, db_name="stockPredict", collection_name="predictResult")
     # del result['_id']
     #
