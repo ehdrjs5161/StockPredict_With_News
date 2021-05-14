@@ -21,12 +21,54 @@
   <component name="ChangeListManager">
     <list default="true" id="0b814f35-c772-4d9b-ada7-f82a00ecf975" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Stock_predict.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Stock_predict.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.eslintcache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/logo192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/logo512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Components/Chart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Components/CodeList.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Components/Info.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Components/MyStockChart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Components/Rank.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Components/Search.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Page/Home.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Page/Predict.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Page/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/reportWebVitals.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/setupTests.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/update.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/kospi_test_result.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/model/model_day1/068270/saved_model.pb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/model/model_day1/068270/variables/variables.data-00000-of-00001" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/model/model_day1/068270/variables/variables.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/model/model_day1/withNews/068270/saved_model.pb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/model/model_day1/withNews/068270/variables/variables.data-00000-of-00001" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/model/model_day1/withNews/068270/variables/variables.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/pythonCode/NLP.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/NLP.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/pythonCode/company.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/company.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/pythonCode/getNews.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/getNews.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/pythonCode/getPrice.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/getPrice.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/pythonCode/method.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/method.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/pythonCode/modeling.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/modeling.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/pythonCode/plotlyApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/plotlyApp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/pythonCode/plotlyApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/plotlyApp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/pythonCode/sentiment_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/sentiment_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/test_result/삼성전자.png" beforeDir="false" afterPath="$PROJECT_DIR$/server/test_result/삼성전자.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +78,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="HTML File" />
         <option value="Python Script" />
       </list>
     </option>
@@ -49,6 +92,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -56,12 +100,13 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\pythonProject\Stock_predict\server\pythonCode" />
       <recent name="C:\pythonProject\Stock_predict\server" />
+      <recent name="C:\pythonProject\Stock_predict\server\model" />
+      <recent name="C:\pythonProject\Stock_predict\server\pythonCode" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.plotlyApp">
-    <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.update">
+    <configuration name="plotlyApp (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Stock_predict" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -73,49 +118,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/server/app.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="getPrice" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Stock_predict" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/server/pythonCode" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/server/pythonCode/getPrice.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="plotlyApp (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Stock_predict" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/server/pythonCode" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/server/pythonCode/plotlyApp.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/server/plotlyApp.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -136,7 +139,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\pythonProject\Stock_predict\server\pythonCode\plotlyApp.py" />
+      <option name="SCRIPT_NAME" value="C:\pythonProject\Stock_predict\server\plotlyApp.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -145,7 +148,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="plotlytest01" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="plotlyApp" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Stock_predict" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -157,7 +160,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\pythonProject\Stock_predict\server\pythonCode\plotlytest01.py" />
+      <option name="SCRIPT_NAME" value="C:\pythonProject\Stock_predict\server\plotlyApp.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -187,13 +190,55 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test_file2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Stock_predict" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/server/pythonCode" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/server/pythonCode/test_file2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="update" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Stock_predict" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/server" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\pythonProject\Stock_predict\server\update.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.update" />
         <item itemvalue="Python.plotlyApp" />
-        <item itemvalue="Python.app" />
+        <item itemvalue="Python.test_file2" />
         <item itemvalue="Python.plotlyApp (1)" />
         <item itemvalue="Python.test__file" />
-        <item itemvalue="Python.getPrice" />
       </list>
     </recent_temporary>
   </component>
@@ -221,33 +266,53 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1618742198867">
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1620930280048">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1618742198867" />
-    <state width="1899" height="272" key="GridCell.Tab.0.bottom" timestamp="1619448981934">
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1620930280048" />
+    <state width="1899" height="271" key="GridCell.Tab.0.bottom" timestamp="1620989182866">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="272" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1619448981934" />
-    <state width="1899" height="272" key="GridCell.Tab.0.center" timestamp="1619448981934">
+    <state width="1899" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1620989182866" />
+    <state width="1899" height="271" key="GridCell.Tab.0.center" timestamp="1620989182866">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="272" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1619448981934" />
-    <state width="1899" height="272" key="GridCell.Tab.0.left" timestamp="1619448981934">
+    <state width="1899" height="271" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1620989182866" />
+    <state width="1899" height="271" key="GridCell.Tab.0.left" timestamp="1620989182865">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="272" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1619448981934" />
-    <state width="1899" height="272" key="GridCell.Tab.0.right" timestamp="1619448981934">
+    <state width="1899" height="271" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1620989182865" />
+    <state width="1899" height="271" key="GridCell.Tab.0.right" timestamp="1620989182866">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="272" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1619448981934" />
+    <state width="1899" height="271" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1620989182866" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1617803004165">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1617803004165" />
-    <state x="623" y="225" key="search.everywhere.popup" timestamp="1615733006130">
+    <state x="0" y="0" width="1601" height="1027" key="dock-window-1" timestamp="1620932781209">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1615733006130" />
+    <state x="0" y="0" width="1601" height="1027" key="dock-window-1/0.0.1920.1040@0.0.1920.1040" timestamp="1620932781209" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1620755877204">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1620755877204" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/server/pythonCode/modeling.py</url>
+          <line>51</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/server/pythonCode/company.py</url>
+          <line>20</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

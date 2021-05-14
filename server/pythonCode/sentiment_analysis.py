@@ -6,7 +6,7 @@ def set_word_list():
     positive = []
     negative = []
     total = []
-    pos = codecs.open("../file/NLP/positive_words_self.txt", 'rb', encoding="UTF-8")
+    pos = codecs.open("file/NLP/positive_words_self.txt", 'rb', encoding="UTF-8")
 
     while True:
         line = pos.readline()
@@ -18,7 +18,7 @@ def set_word_list():
             break
     pos.close()
 
-    neg = codecs.open("../file/NLP/negative_words_self.txt", 'rb', encoding="UTF-8")
+    neg = codecs.open("file/NLP/negative_words_self.txt", 'rb', encoding="UTF-8")
 
     while True:
         line = neg.readline()

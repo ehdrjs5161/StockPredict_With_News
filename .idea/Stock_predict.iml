@@ -1,7 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/server/.idea/shelf" />
+      <excludeFolder url="file://$MODULE_DIR$/server/file/news/2012.01.01~2015.12.31" />
+      <excludeFolder url="file://$MODULE_DIR$/server/file/news/2016.01.01~2021.03.31" />
+      <excludeFolder url="file://$MODULE_DIR$/server/file/price" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/000270" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/000660" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/003550" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/005380" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/005490" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/005930" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/006400" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/009150" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/012330" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/015760" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/017670" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/018260" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/028260" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/032830" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/034730" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/035420" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/035720" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/036570" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/051900" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/051910" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/055550" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/066570" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/090430" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/096770" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/105560" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/207940" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/326030" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/LSTM(128)" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/Test(Feat.9)_Dropout(0.3,0.2)" />
+      <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/diff_test" />
+      <excludeFolder url="file://$MODULE_DIR$/server/result0512" />
+    </content>
     <orderEntry type="jdk" jdkName="Python 3.6 (Stockpredict-venv)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

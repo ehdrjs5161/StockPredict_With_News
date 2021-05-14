@@ -1,17 +1,21 @@
 import tensorflow as tf
 from tensorflow import keras
+from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.keras.callbacks import ModelCheckpoint
 from silence_tensorflow import silence_tensorflow
 import pandas as pd
 import numpy as np
-import datetime
+from collections import OrderedDict
 from . import method
 from sklearn.preprocessing import MinMaxScaler
 from matplotlib import pyplot as plt
-import os
 
 silence_tensorflow()
 
 gpus = tf.config.experimental.list_physical_devices('GPU')
+
+early_stop = EarlyStopping(monitor="val_loss", patience=5)
+
 if gpus:
   try:
     tf.config.experimental.set_memory_growth(gpus[0], True)
@@ -29,258 +33,190 @@ def create_dataset(data, term, predict_days):
 
     return x_ary, y_ary
 
-def load_model(code, predict_day, features):
-    try:
-        if features == 2:
-            if predict_day == 1:
-                model = keras.models.load_model("../model/model_day1/"+code)
-            elif predict_day == 7:
-                model = keras.models.load_model("model/model_day7/"+code)
-            else:
-                print("Deep Learning Model Not Found Error")
-        else:
-            if predict_day == 1:
-                model = keras.models.load_model("model/model_day1/withNews/" + code)
-            elif predict_day == 7:
-                model = keras.models.load_model("model/model_day7/withNews/" + code)
-            else:
-                print("Deep Learning Model Not Found Error")
-        return model
-
-    except FileNotFoundError as e:
-        print(e)
-        print("Deep Learning Model Not Found Error")
-
 def modeling(batch, term, features):
     model = keras.Sequential()
-    model.add(keras.layers.LSTM(128, batch_input_shape=(batch, term, features), return_sequences=True))
-    model.add(keras.layers.LSTM(128))
+    model.add(keras.layers.LSTM(128, batch_input_shape=(batch, term, features), stateful=True, return_sequences=True))
+    model.add(keras.layers.LSTM(128, stateful=True))
     model.add(keras.layers.Dense(1))
     model.compile(optimizer='adam', loss='mse')
     return model
 
-# def modeling_day7(batch, term, features):
-#     model = keras.Sequential()
-#     model.add(keras.layers.LSTM(512, batch_input_shape=(batch, term, features), return_sequences=True))
-#     model.add(keras.layers.Dropout(0.3))
-#     model.add(keras.layers.LSTM(512))
-#     model.add(keras.layers.Dense(7, activation='linear', kernel_initializer=tf.initializers.zeros))
-#     model.compile(optimizer='adam', loss='mse')
-#     return model
-
 def modeling_nlp(max_words):
     model = keras.Sequential()
     model.add(keras.layers.Embedding(max_words, 100))
-    model.add(keras.layers.LSTM(128))
+    model.add(keras.layers.LSTM(120))
     model.add(keras.layers.Dense(3, activation="softmax"))
     model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=['accuracy'])
     return model
 
-def model_educate(company, term, batch, predict_day):
-    try:
-        if predict_day == 1:
-            model = company.model_day1
-        elif predict_day == 7:
-            model = company.model_day7
-    except:
-        print("Model Setting Error")
+def model_educate(company, predict_day, feature, model_type=None):
+    model = None
+    data = company.price[['Date', 'Close', 'Volume', "EMA"]]
 
-    # print(data)
-    if company.features == 2:
-        data = company.price[['Date', 'Close', 'Volume']]
-    elif company.features == 3:
-        news = method.sent_result(company.news[['Date', 'Label']])
-        data = method.merge(news, company.price[['Date', 'Close', 'Volume']], "Date", "Date")
+    if feature == 3:
+        data = method.merge(company.news, company.price[['Date', "EMA", 'Volume']], "Date", "Date")
+    else:
+        print("model selecting Error")
+    if model_type == 'test':
+        model = company.test_model
+    elif model_type == "predict":
+        model = company.model
+    else:
+        print("Model selecting Error")
+    print(data.isnull().sum())
+    data.pop("Date")
 
-    timeline = pd.to_datetime(data.pop("Date"), format="%Y-%m-%d")
     Scaler = MinMaxScaler(feature_range=(0, 1))
     Scaler.fit(data)
     data = Scaler.fit_transform(data)
+    train_data = data
 
-    train_data = data[:int(len(data) * 0.8)]
-
-    train_x, train_y = create_dataset(train_data, term, predict_day)
-    batch_point = method.re_sizing(batch, train_x)
-    train_x = train_x[batch_point:]
-    train_y = train_y[batch_point:]
-    now = datetime.datetime.now()
-    now = now.strftime('%Y.%m.%d %H:%M:%S')
-    if company.features == 2:
-        if predict_day == 1:
-            history = model.fit(train_x, train_y, epochs=50, batch_size=batch, verbose=0)
-            model.save("model/model_day1/"+company.code)
-        # elif predict_day==7:
-        #     history = model.fit(train_x, train_y, epochs=50, batch_size=batch)
-        #     model.save("model/model_day7/" + company.code)
+    if model_type == "test":
+        train_data = data[:int(len(data) * 0.7)]
+        val_data = data[int(len(data) * 0.7):int(len(data) * 0.8)]
     else:
-        if predict_day == 1:
-            history = model.fit(train_x, train_y, epochs=50, batch_size=batch)
-            model.save("model/model_day1/withNews/LSTM(128)")
-        # elif predict_day == 7:
-        #     history = model.fit(train_x, train_y, epochs=50, batch_size=batch)
-        #     model.save("model/model_day7/withNews/" + company.code)
-        else:
-            print("predict_day Setting Error!")
-    # plt.figure(figsize=(16, 9))
-    # plt.plot(history.history['loss'], label="loss")
-    # plt.xlabel("epoch")
-    # plt.ylabel("loss")
-    # plt.legend()
-    # plt.show()
+        val_data = method.sample_data(company.span)
+        Scaler.fit(val_data)
+        val_data=Scaler.fit_transform(val_data)
+
+    train_x, train_y = create_dataset(train_data, company.term, predict_day)
+    batch_point = method.re_sizing(company.batch_size, train_x)
+    train_x, train_y = train_x[batch_point:], train_y[batch_point:]
+
+    val_x, val_y = create_dataset(val_data, company.term, predict_day)
+    batch_point = method.re_sizing(company.batch_size, val_x)
+    val_x, val_y = val_x[batch_point:], val_y[batch_point:]
+
+    print(train_x.shape, train_y.shape)
+
+    if feature == 3 and model_type == "test":
+        path = "model/test_model/{}.h5".format(company.code)
+        check_point = ModelCheckpoint(path, monitor='val_loss', mode='min', save_best_only=True)
+        history = model.fit(train_x, train_y, epochs=100, batch_size=company.batch_size, verbose=0, callbacks=[early_stop, check_point], validation_data=(val_x, val_y))
+
+    elif feature == 3 and model_type == "predict":
+        path = "model/{}.h5".format(company.code)
+        check_point = ModelCheckpoint(path, monitor='val_loss', mode='min', save_best_only=True)
+        history = model.fit(train_x, train_y, epochs=100, batch_size=company.batch_size, verbose=0, callbacks=[early_stop, check_point], validation_data=(val_x, val_y))
+
+    else:
+        print("Number of feature setting Error")
+
     return model
 
-def test_day1(company):
-    model = company.model_day1
-    if company.features == 2:
-        data = company.price[['Date', 'Close', 'Volume']]
-    elif company.features == 3:
-        news = method.sent_result(company.news[['Date', 'Label']])
-        data = method.merge(news, company.price[['Date', 'Close', 'Volume']], "Date", "Date")
-
-    if company.code != "005930":
-        data = data[int(len(data)*0.5):]
+def test(company, features):
+    test_model = None
+    data = pd.DataFrame()
+    if features == 3:
+        data = method.merge(company.news, company.price[['Date', "EMA", 'Volume', 'Close']], "Date", "Date")
+        test_model = company.test_model
     else:
+        print("Model selecting Error")
+    data.dropna(inplace=True)
+    ma = data['EMA']
+    close = data.pop('Close')
+
+    if company.code == "005930":
         data = data[int(len(data)*0.8):]
+        close = close[int(len(close)*0.8):]
+        ma = ma[int(len(ma)*0.8):]
 
-    print(company.code, "'s data length: ", len(data))
-    close = data['Close']
     timeline = pd.to_datetime(data.pop("Date"), format="%Y-%m-%d")
-
     Scaler = MinMaxScaler(feature_range=(0, 1))
     Scaler.fit(data)
     normed_data = Scaler.fit_transform(data)
-    x_data, y_data = create_dataset(normed_data, 28, 1)
+    x_data, y_data = create_dataset(normed_data, company.term, 1)
 
-    timeline = timeline[28:]
-    close = close[28:]
+    timeline = timeline[company.term:]
+    close = close[company.term:]
+    ma = ma[company.term:]
 
-    predictions = model.predict(x_data, batch_size=1)
-    real_prediction = method.inverseTransform(Scaler, predictions, features=company.features)
+    batch_point = method.re_sizing(batch_size=10, data=x_data)
+    x_data = x_data[batch_point:]
 
-    time = []
-    for i in range(0, len(timeline)):
-        time.append(method.date_to_str(timeline.iloc[i]))
+    timeline = timeline[batch_point:]
+    close = np.array(close[batch_point:])
+    ma = np.array(ma[batch_point:])
 
-    score = model.evaluate(x_data, y_data, batch_size=1)
-    score = round(score, 7)
-    print(score)
-    frame = pd.DataFrame({'Date': list(timeline), 'Price': list(close), 'Predict': list(real_prediction)})
-    return frame
+    prediction = test_model.predict(x_data, batch_size=company.batch_size)
+    real_prediction = method.inverseTransform(Scaler, prediction, features)
+    predict_price = []
+    for i in range(1, len(real_prediction)):
+        predict_price.append(method.ema_to_price(real_prediction[i], ma[i-1], company.span))
+    predict_price = np.array(predict_price)
+    result = pd.DataFrame({"Date": timeline[1:], "Actual_Price": close[1:], "Predict_Price": predict_price})
 
-def test_day7(company):
-    model = company.model_day7
-    if company.features == 2:
-        data = company.price[['Date', 'Close', 'Volume']]
-    elif company.features == 3:
-        news = method.sent_result(company.news[['Date', 'Label']])
-        data = method.merge(news, company.price[['Date', 'Close', 'Volume']], "Date", "Date")
-    price = data['Close']
-    time = data['Date']
-    data = data[int(len(data) * 0.9):]
-    close = data['Close']
-    timeline = pd.to_datetime(data.pop("Date"), format="%Y-%m-%d")
-
-    Scaler = MinMaxScaler(feature_range=(0, 1))
-    Scaler.fit(data)
-    normed_data = Scaler.fit_transform(data)
-    x_data, y_data = create_dataset(normed_data, 28, 7)
-    timeline = timeline[28:]
-    close = close[28:]
-    predictions = model.predict(x_data, batch_size=1)
-    real_prediction = method.inverseTransform(Scaler, predictions, features=company.features)
-
-    time = []
-    for i in range(0, len(timeline)):
-        time.append(method.date_to_str(timeline.iloc[i]))
-    result = {'Time': timeline, 'Price': close, 'Predict': real_prediction}
-    score = model.evaluate(x_data, y_data, batch_size=1)
-    print(score)
-    # view_overall(timeline, actual=price, predict=real_prediction, name=company.name)
-    print(len(timeline), len(close), len(real_prediction))
-
-
-def predict_day1(company):
-    model = company.model_day1
-    if company.features == 2:
-        data = company.price[['Date', 'Close', 'Volume']]
-    elif company.features == 3:
-        news = method.sent_result(company.news[['Date', 'Label']])
-        data = method.merge(news, company.price[['Date', 'Close', 'Volume']], "Date", "Date")
-
-    data = data[-29:]
-    # data = data[['Date', 'Close', 'Volume']]
-    close = list(data['Close'])
-    timeline = pd.to_datetime(data.pop("Date"), format="%Y-%m-%d")
-
-    Scaler = MinMaxScaler(feature_range=(0, 1))
-    Scaler.fit(data)
-    normed_data = Scaler.fit_transform(data)
-    x_data, y_data = create_dataset(normed_data, 28, 1)
-    predictions = model.predict(x_data, batch_size=1)
-    real_prediction =method.inverseTransform(Scaler, predictions, features=company.features)
-    real_prediction = list(real_prediction)
-
-    time = []
-    for i in range(0, len(timeline)):
-        time.append(method.date_to_str(timeline.iloc[i]))
-    result = {'Time': time, 'Price': close, 'Predict': real_prediction}
     return result
 
-def predict_day7(company):
-    model = company.model_day7
-    if company.features == 2:
-        data = company.price[['Date', 'Close', 'Volume']]
-    elif company.features == 3:
-        news = method.sent_result(company.news[['Date', 'Label']])
-        data = method.merge(news, company.price[['Date', 'Close', 'Volume']], "Date", "Date")
-    data = data[-35:]
+def predict(company, features):
+    model = None
+    data = pd.DataFrame()
+    if features == 3:
+        data = method.merge(company.news, company.price[['Date', "EMA", 'Volume', 'Close']], "Date", "Date")
+        model = company.model
+    else:
+        print("Model selecting Error")
+    ma = data['EMA']
+    close = data.pop('Close')
 
-    close = list(data['Close'])
     timeline = pd.to_datetime(data.pop("Date"), format="%Y-%m-%d")
-
     Scaler = MinMaxScaler(feature_range=(0, 1))
     Scaler.fit(data)
     normed_data = Scaler.fit_transform(data)
-    x_data, y_data = create_dataset(normed_data, 28, 7)
+    x_data, y_data = create_dataset(normed_data, company.term, 1)
 
-    predictions = model.predict(x_data, batch_size=1)
-    real_prediction = method.inverseTransform(Scaler, predictions, features=company.features)
-    real_prediction = list(real_prediction)
-    time =[]
-    for i in range(0, len(timeline)):
-        time.append(method.date_to_str(timeline.iloc[i]))
-    result = {'Time': time, 'Price': close, 'Predict': real_prediction}
+    timeline = timeline[company.term:]
+    close = close[company.term:]
+    ma = ma[company.term:]
+
+    batch_point = method.re_sizing(batch_size=10, data=x_data)
+    x_data = x_data[batch_point:]
+
+    timeline = timeline[batch_point:]
+    close = np.array(close[batch_point:])
+    ma = np.array(ma[batch_point:])
+
+    prediction = model.predict(x_data, batch_size=company.batch_size)
+    real_prediction = method.inverseTransform(Scaler, prediction, features)
+    predict_price = method.ema_to_price(real_prediction[-1], ma[-2], company.span)
+    rate = round(100 * (predict_price-close[-1])/close[-1], 2)
+
+    result = OrderedDict()
+    result['code'] = company.code
+    result['name'] = company.name
+    result['predict'] = int(predict_price)
+    result['rate'] = rate
+
     return result
 
 def view_day1(time, actual, predict, name):
     plt.figure(figsize=(16, 9))
-    plt.plot(time[:28], actual[-29:-1], label="price")
-    plt.scatter(time[28:], actual[-1], label="Actual", edgecolors='k', c='#2ca02c', s=100)
-    plt.scatter(time[28:], predict, label="Predict", edgecolors='k', marker='X', c='#ff7f0e', s=100)
+    plt.plot(time[:20], actual[-29:-1], label="price")
+    plt.scatter(time[20:], actual[-1], label="Actual", edgecolors='k', c='#2ca02c', s=100)
+    plt.scatter(time[20:], predict, label="Predict", edgecolors='k', marker='X', c='#ff7f0e', s=100)
     plt.xlabel("Time")
     plt.ylabel("Close Price(KRW)")
     plt.title(name+"'s Predicted next day's Close(￦)")
-    plt.legend()
-    plt.savefig('test_result/'+name+".png")
 
-def view_day1(time, actual, predict, name):
-    plt.figure(figsize=(16, 9))
-    plt.plot(time[:28], actual[-29:-7], label="price")
-    plt.scatter(time[28:], actual[-7:], label="Actual", edgecolors='k', c='#2ca02c', s=100)
-    plt.scatter(time[28:], predict, label="Predict", edgecolors='k', marker='X', c='#ff7f0e', s=100)
-    plt.xlabel("Time")
-    plt.ylabel("Close Price(KRW)")
-    plt.title(name+"'s Predicted next day's Close(￦)")
-    plt.legend()
-    plt.savefig('test_result/'+name+".png")
-
-
-def view_overall(days, actual, predict, name):
+def view_overall(days, actual, ma, predict, name, features):
     plt.figure(figsize=(16, 9))
     plt.plot(days, actual, label="Actual")
+    plt.plot(days, ma, label="EMA")
     plt.plot(days, predict, label="Predict")
     plt.xlabel("Time")
     plt.ylabel("Close(KRW)")
     plt.legend()
-    plt.title(name+"s Close(KRW)")
-    plt.savefig("test_result/"+name+".png")
+    plt.title(name+"\'s Close(KRW) (Feat."+str(features)+")")
+    plt.show()
+
+def view_overall2(days, actual, ma, predict_ma, predict_price, name, features):
+    plt.figure(figsize=(16, 9))
+    plt.plot(days[int(len(days)*0.7):], actual[int(len(days)*0.7):], label="Actual_Price")
+    plt.plot(days[int(len(days)*0.7):], predict_price[int(len(days)*0.7):], label="Predict_Price")
+    # plt.plot(days, ma, label="EMA")
+    # plt.plot(days, predict_ma, label="Predict_EMA")
+    plt.xlabel("Time")
+    plt.ylabel("Close(KRW)")
+    plt.legend()
+    plt.title(name+"\'s Close(KRW) (Feat."+str(features)+")")
+    plt.show()

@@ -23,7 +23,7 @@ def preprocess(data):
 
     return x_data
 
-def predict(news):
+def educate(news):
     max_len =30
 
     train = pd.read_csv("../file/NLP/train_data.csv", encoding="utf-8")[['Title', 'Label']]
@@ -70,31 +70,30 @@ def predict(news):
 
     return result
 
-def predict_prototype(news):
+def predict(news):
     print("Predict")
     max_len =50
 
-    train = pd.read_csv("../file/NLP/train_data.csv", encoding="utf-8")[['Title', 'Label']]
-    test = news
+    data = news
 
     begin = time.time()
-    test_x = preprocess(test)
+    data_x = preprocess(data)
     end = time.time()
     print("preprocess Time: ", end - begin, "(sec)")
 
     max_words = 50000
     tokenizer = Tokenizer(num_words=max_words)
-    tokenizer.fit_on_texts(test_x)
+    tokenizer.fit_on_texts(data_x)
 
-    test_x = tokenizer.texts_to_sequences(test_x)
-    test_x = pad_sequences(test_x, maxlen=max_len)
+    data_x = tokenizer.texts_to_sequences(data_x)
+    data_x = pad_sequences(data_x, maxlen=max_len)
     if not os.path.isfile("../model/NLP_model/saved_model.pb"):
         model = modeling.modeling_nlp(max_words)
     else:
         model = load_model("../model/NLP_model")
         print("NLP Load Completed!\n")
-    label = model.predict(test_x)
+    label = model.predict(data_x)
     predict_Label = np.argmax(label, axis=1)
-    sample = test.assign(Label=predict_Label)
+    sample = data.assign(Label=predict_Label)
 
     return sample

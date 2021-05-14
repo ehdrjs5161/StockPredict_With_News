@@ -3,6 +3,7 @@ import requests
 import time
 import datetime
 from . import sentiment_analysis as sent
+from . import NLP
 from bs4 import BeautifulSoup
 
 header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36'}
@@ -54,6 +55,7 @@ def parsing(name, begin, end):
     frame = pd.DataFrame({'Date': date_result, 'Title': title_result})
     frame.drop_duplicates(['Title'], inplace=True)
     frame = sent.labeling(frame)
+    # frame = NLP.predict(frame)
     return frame
 
 

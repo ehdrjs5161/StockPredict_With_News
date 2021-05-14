@@ -17,10 +17,9 @@ def market_info (code, begin):
     today = datetime.datetime.today().strftime("%Y%m%d")
     market = pd.DataFrame()
     code = method.set_code(code)
-    marekt = stock.get_market_fundamental_by_date()
     print(code)
-    if os.path.isfile("../market_info/" + code + ".csv"):
-        market = pd.read_csv("./market_info/" + code + ".csv", encoding="UTF-8")
+    if os.path.isfile("../market/" + code + ".csv"):
+        market = pd.read_csv("./market/" + code + ".csv", encoding="UTF-8")
         last_day = datetime.datetime.strptime(market.iloc[-1]['날짜'], "%Y-%m-%d")
         last_day = datetime.datetime.strftime(last_day, "%Y%m%d")
         temp = stock.get_market_fundamental_by_date(last_day, today, code)
@@ -29,6 +28,7 @@ def market_info (code, begin):
         date = begin.replace("-", "")
         temp = stock.get_market_fundamental_by_date(date, today, code)
         market = pd.concat([market, temp])
+        market = market.rename({'날짜': "Date"}, axis="columns")
     return market
 
 

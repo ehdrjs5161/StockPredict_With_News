@@ -8,8 +8,24 @@ from . import getPrice, getNews, method, DB_Handler
 mongo = DB_Handler.DBHandler()
 db_name = "stockPredict"
 
+
 def csv_to_json(data):
     return data.to_dict("records")
+
+def transform(data, span):
+    data['20MA'] = data['Close'].rolling(window=20).mean()
+    temp = data['Close'].ewm(span=span).mean()
+    data['EMA'] = temp
+    data.dropna(inplace=True)
+    return data
+
+def ema_to_price(predict, ema, span):
+    alpha = 2/(span+1)
+    result = (predict - (1-alpha)*ema)/alpha
+    try:
+        return int(result)
+    except:
+        return result
 
 def set_code(code):
     code = str(code)
@@ -58,22 +74,23 @@ def load_data(company):
             news_input['code'] = code
             news_input['news'] = news_json
             mongo.insert_item(data=news_input, db_name=db_name, collection_name="news")
-            news = news
+
     else:
         news = pd.DataFrame(news['news'])
 
     if price is None:
         price = getPrice.stock_price(code, "2012-01-01")
-        price.to_csv("price/"+code+'.csv', encoding="UTF-8")
-        price = pd.read_csv("price/"+code+".csv")[['Date', 'Open', 'High', 'Low', 'Close', 'Volume']]
+        price.to_csv("file/price/"+code+'.csv', encoding="UTF-8")
+        price = pd.read_csv("file/price/"+code+".csv")[['Date', 'Open', 'High', 'Low', 'Close', 'Volume']]
         price_json = csv_to_json(price)
         price_input = OrderedDict()
         price_input['code'] = code
         price_input['price'] = price_json
         mongo.insert_item(data=price_input, db_name=db_name, collection_name="price")
-        price = price
+        price = method.transform(price, company.span)
     else:
         price = pd.DataFrame(price['price'])
+        price = method.transform(price, company.span)
 
     return news, price
 
@@ -131,25 +148,17 @@ def inverseTransform(Scaler, normed_data, features):
     for i in range(0, len(normed_data)):
         temp = []
         for j in range(0, len(normed_data[0])):
-            if features == 2:
-                temp.append(int(Scaler.inverse_transform([[normed_data[i][j], 0]])[0][0][0]))
-            elif features == 3:
-                temp.append(int(Scaler.inverse_transform([[normed_data[i][j], 0, 0]])[0][0]))
+            if features == 3:
+                temp.append(Scaler.inverse_transform([[normed_data[i][j], 0, 0]])[0][0])
+            elif features == 4:
+                temp.append(Scaler.inverse_transform([[normed_data[i][j], 0, 0, 0]])[0][0])
+            elif features == 7:
+                temp.append(Scaler.inverse_transform([[normed_data[i][j], 0, 0, 0, 0, 0, 0, ]])[0][0])
             else:
                 print("confirm # of features")
         real_data.append(temp)
     temp = np.array(real_data)
     real_data=temp.flatten()
-    return real_data
-
-def inverseTransform_day7(Scaler, normed_data):
-    real_data = []
-    for i in range(0, len(normed_data)):
-        temp = []
-        for j in range(0, len(normed_data[0])):
-            temp.append(Scaler.inverse_transform([[normed_data[i][j], 0, 0]])[0][0])
-        real_data.append(temp)
-
     return real_data
 
 def rate(last_price, predict, day):
@@ -189,3 +198,13 @@ def sent_result(frame):
 
     result = pd.DataFrame({'Date': date, 'Label': label})
     return result
+
+def sample_data(span):
+    price_temp = mongo.find_item(condition={"code": "005930"}, db_name=db_name, collection_name="price")
+    price_temp = pd.DataFrame(price_temp['price'])
+    price = transform(price_temp, span)
+    news_temp = mongo.find_item(condition={"code": "005930"}, db_name=db_name, collection_name="news")
+    news = pd.DataFrame(news_temp['news'])
+    data = merge(news, price, "Date", 'Date')
+    data = data[['EMA', 'Volume', 'Label']]
+    return data[int(len(data)*0.7):]
