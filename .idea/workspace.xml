@@ -20,14 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b814f35-c772-4d9b-ada7-f82a00ecf975" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/pythonCode/DB_Handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/DB_Handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/pythonCode/company.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/company.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/pythonCode/method.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/method.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/pythonCode/modeling.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/modeling.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/update.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/update.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,6 +203,14 @@
       <option name="presentableId" value="Default" />
       <updated>1615732983062</updated>
     </task>
+    <task id="LOCAL-00001" summary="update">
+      <created>1621075988828</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1621075988828</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -223,6 +224,10 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
   <component name="WindowStateProjectService">
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1620930280048">

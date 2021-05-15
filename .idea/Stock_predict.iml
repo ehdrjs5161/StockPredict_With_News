@@ -5,7 +5,6 @@
       <excludeFolder url="file://$MODULE_DIR$/server/.idea/shelf" />
       <excludeFolder url="file://$MODULE_DIR$/server/file/news/2012.01.01~2015.12.31" />
       <excludeFolder url="file://$MODULE_DIR$/server/file/news/2016.01.01~2021.03.31" />
-      <excludeFolder url="file://$MODULE_DIR$/server/file/price" />
       <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/000270" />
       <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/000660" />
       <excludeFolder url="file://$MODULE_DIR$/server/model/model_day1/withNews/003550" />
