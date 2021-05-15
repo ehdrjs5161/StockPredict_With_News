@@ -9,24 +9,21 @@ mongo = DB_Handler.DBHandler()
 
 def predict(code):
     name = method.code_to_name(kospi, code)
-    comp = company.companys(name=name, code=code)
+    comp = company.companys(name=name, code=code, batch=10, term=10)
     comp.load_data(10)
     print("-----------------------------------------------------------------------------------------------")
     print("종목코드: ", code, " 기업명: ", name)
-
-    # features=3 news, 20MA or EWM, volume
-    # features=6 news, 20MA or EWM, volume, BPS, PER, PBR, EPS
-
     comp.update_data()
-    comp.model_setting(10, 10)
+    comp.model_setting()
     comp.test_predict()
     comp.predict_stock()
-    print(comp.result)
     comp.result_save()
+    print(comp.result)
+
 
 if __name__ == "__main__":
     kospi = mongo.find_items(db_name="stockPredict", collection_name="code")
     kospi = pd.DataFrame(kospi)[['code', 'name']]
 
-    for i in range(44, len(kospi['code'])):
+    for i in range(0, len(kospi['code'])):
         predict(kospi['code'].iloc[i])

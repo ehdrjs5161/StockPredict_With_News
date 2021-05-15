@@ -13,7 +13,6 @@ def csv_to_json(data):
     return data.to_dict("records")
 
 def transform(data, span):
-    data['20MA'] = data['Close'].rolling(window=20).mean()
     temp = data['Close'].ewm(span=span).mean()
     data['EMA'] = temp
     data.dropna(inplace=True)
@@ -81,16 +80,16 @@ def load_data(company):
     if price is None:
         price = getPrice.stock_price(code, "2012-01-01")
         price.to_csv("file/price/"+code+'.csv', encoding="UTF-8")
-        price = pd.read_csv("file/price/"+code+".csv")[['Date', 'Open', 'High', 'Low', 'Close', 'Volume']]
+        price = pd.read_csv("file/price/"+code+".csv")[['Date', 'Close', 'Volume']]
         price_json = csv_to_json(price)
         price_input = OrderedDict()
         price_input['code'] = code
         price_input['price'] = price_json
         mongo.insert_item(data=price_input, db_name=db_name, collection_name="price")
-        price = method.transform(price, company.span)
+        # price = method.transform(price, company.span)
     else:
         price = pd.DataFrame(price['price'])
-        price = method.transform(price, company.span)
+        # price = method.transform(price, company.span)
 
     return news, price
 

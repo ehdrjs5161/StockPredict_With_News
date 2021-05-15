@@ -10,11 +10,9 @@
 
 * pandas_datareader
 
-* pykrx
-
 * pymongo
 
-* tensorFlow
+* tensorflow-gpu==2.4
 
 * numpy
 
@@ -41,8 +39,6 @@ pip install [Library_name]
   
 * pandas_datareader를 이용하여 수집한 2012년 1월 1일 이후 KOSPI 200의 상위 100개 종목의 주식데이터(OHLCV)
 
-* pykrx를 이용하여 종목별 주가지수(PER, PBR, EPS 등) 데이터 수집
-
 * MongoDB에 각 기업의 종목코드, 주가데이터, 뉴스데이터, 주가지수, 예측결과 저장.
   
 # 감성분석
@@ -55,7 +51,7 @@ pip install [Library_name]
  
 * 딥러닝의 Features 선정 방법: 상관계수, VIF(Variance Inflation Factor) 사용
 
-* 케라스를 이용한 LSTM모델로 이전 20일 동안의 종가, 거래량, 20일간 이동평균, 뉴스 감성분석 값, 주가지수를 Features로 하여 다음 개장일의 종가(Close)를 예측
+* 케라스를 이용한 LSTM모델로 이전 10일 동안의 10일간 지수이동평균, 거래량, 뉴스 감성분석을 Features로 하여 다음 개장일의 종가(Close)를 예측
 
 * Overfitting현상, Lagging현상을 보완하기 위해 모델 앙상블(Ensemble) 기법 사용.
 
@@ -68,6 +64,9 @@ pip install [Library_name]
 # 실행
 
 `````
-    # plotlyApp 실행
+    # 최신 데이터로 업데이트를 위해 update.py 실행
+    python update.py
+
+    # plotlyApp.py 실행
     python plotlyApp.py
 `````

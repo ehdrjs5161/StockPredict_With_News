@@ -5,7 +5,6 @@ class DBHandler:
     def __init__(self):
         host = 'localhost'
         port = 27017
-
         self.client = MongoClient(host, int(port))
 
     def insert_item(self, data, db_name=None, collection_name=None):

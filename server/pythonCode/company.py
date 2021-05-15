@@ -9,24 +9,31 @@ mongo = DB_Handler.DBHandler()
 db_name = "stockPredict"
 
 class companys:
-    def __init__(self, code, name):
+    def __init__(self, code, name, batch, term):
         self.code = code
         self.name = name
+        self.batch_size = batch
+        self.term = term
         self.news =None
         self.price = None
         self.newNews = None
         self.newPrice = None
-        self.batch_size = None
-        self.term = None
         self.test_model= None
         self.model = None
         self.test_result = None
         self.result = None
         self.span = None
+        self.update = False
 
     def load_data(self, span):
         self.span = span
         self.news, self.price = method.load_data(self)
+
+    def predict_stock(self):
+        self.result = modeling.predict(self, features=3)
+
+    def test_predict(self):
+        self.test_result = modeling.test(self, features=3)
 
     def update_data(self):
         yesterday = method.date_to_str(datetime.datetime.today()-datetime.timedelta(days=1))
@@ -40,30 +47,33 @@ class companys:
             if len(self.newNews) > 0:
                 self.newNews = method.sent_result(self.newNews[['Date', 'Label']])
                 newNews = method.csv_to_json(self.newNews)
-                print(newNews)
                 for news in newNews:
                     mongo.update_item(condition={"code": "{}".format(self.code)},
                                       update_value={'$push': {'news': news}}, db_name=db_name, collection_name="news")
                 self.news = pd.concat([self.news, self.newNews])
+            self.update = True
 
         if method.str_to_date(self.price['Date'].iloc[-1]) != yesterday:
             print("Update Price")
             temp = getPrice.stock_price(self.code, begin=self.price['Date'].iloc[-1])
             temp.to_csv("file/price/"+self.code+".csv", encoding="UTF-8")
-            self.newPrice = pd.read_csv("file/price/"+self.code+".csv", encoding="UTF-8")[['Date', 'High', 'Low', 'Open', 'Close', 'Volume']]
+            self.newPrice = pd.read_csv("file/price/"+self.code+".csv", encoding="UTF-8")[['Date', 'Close', 'Volume']]
             newPrice = method.csv_to_json(self.newPrice)
 
             for price in newPrice:
                 mongo.update_item(condition={"code": "{}".format(self.code)}, update_value={'$push': {'price': price}}, db_name=db_name, collection_name="price")
 
             self.price = pd.concat([self.price, self.newPrice])
-
+            self.update = True
         else:
             print(self.name+"'s News & Price data are already Updated!")
 
-    def model_setting(self, batch, term):
-        self.batch_size = batch
-        self.term =term
+        self.price = method.transform(self.price, span=10)
+
+        if self.update:
+            self.model_update()
+
+    def model_setting(self):
         if not os.path.isfile("model/test_model/{}.h5".format(self.code)):
             print("Create Test Model")
             if len(self.news) < 1000:
@@ -73,27 +83,19 @@ class companys:
                     print("For predicting company whose low length data , Save Samsung Electric model First")
                 print("Because of pool data length use Samsung model")
             else:
-                self.test_model = modeling.modeling(batch, term, features=3)
+                self.test_model = modeling.modeling(self.batch_size, self.term, features=3)
                 self.test_model = modeling.model_educate(self, 1, feature=3, model_type="test")
                 print("Test_model educate: Completed")
         else:
             self.test_model = keras.models.load_model("model/test_model/{}.h5".format(self.code))
-            print("Test_model load: Completed!")
 
-        if not os.path.isfile("model/{}.h5".format(self.code)):
-            print("Create Model")
-            self.model = modeling.modeling(batch, term, features=3)
-            self.model = modeling.model_educate(self, 1, feature=3, model_type="predict")
-            print("Model educate: Completed")
-        else:
-            self.model = keras.models.load_model("model/{}.h5".format(self.code))
-            print("Model load: completed!")
+        self.model = keras.models.load_model("model/{}.h5".format(self.code))
 
-    def predict_stock(self):
-        self.result = modeling.predict(self, features=3)
-
-    def test_predict(self):
-        self.test_result = modeling.test(self, features=3)
+    def model_update(self):
+        print("Create Full data Learning Model")
+        self.model = modeling.modeling(self.batch_size, self.term, features=3)
+        self.model = modeling.model_educate(self, 1, feature=3, model_type="predict")
+        print("Model educate: Completed")
 
     def result_save(self):
         temp = OrderedDict()

@@ -1,9 +1,11 @@
-server/model/*
 server/model/test_model
+server/model/NLP_model
+server/model/*.h5
 server/pythonCode/test__file.py
 server/pythonCode/naverAPI.py
-server/file/news/
-server/file/price/
+server/file/news/**
+server/file/news/*.csv
+server/file/price/*.csv
 server/test_result
 server/pythonCode/test_file2.py
 .idea/

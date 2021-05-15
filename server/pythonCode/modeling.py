@@ -50,20 +50,14 @@ def modeling_nlp(max_words):
     return model
 
 def model_educate(company, predict_day, feature, model_type=None):
-    model = None
-    data = company.price[['Date', 'Close', 'Volume', "EMA"]]
-
-    if feature == 3:
-        data = method.merge(company.news, company.price[['Date', "EMA", 'Volume']], "Date", "Date")
-    else:
-        print("model selecting Error")
+    data = method.merge(company.news, company.price[['Date', "EMA", 'Volume']], "Date", "Date")
     if model_type == 'test':
         model = company.test_model
     elif model_type == "predict":
         model = company.model
     else:
         print("Model selecting Error")
-    print(data.isnull().sum())
+
     data.pop("Date")
 
     Scaler = MinMaxScaler(feature_range=(0, 1))
@@ -87,8 +81,6 @@ def model_educate(company, predict_day, feature, model_type=None):
     batch_point = method.re_sizing(company.batch_size, val_x)
     val_x, val_y = val_x[batch_point:], val_y[batch_point:]
 
-    print(train_x.shape, train_y.shape)
-
     if feature == 3 and model_type == "test":
         path = "model/test_model/{}.h5".format(company.code)
         check_point = ModelCheckpoint(path, monitor='val_loss', mode='min', save_best_only=True)
@@ -105,14 +97,9 @@ def model_educate(company, predict_day, feature, model_type=None):
     return model
 
 def test(company, features):
-    test_model = None
-    data = pd.DataFrame()
-    if features == 3:
-        data = method.merge(company.news, company.price[['Date', "EMA", 'Volume', 'Close']], "Date", "Date")
-        test_model = company.test_model
-    else:
-        print("Model selecting Error")
-    data.dropna(inplace=True)
+    data = method.merge(company.news, company.price[['Date', "EMA", 'Volume', 'Close']], "Date", "Date")
+    test_model = company.test_model
+
     ma = data['EMA']
     close = data.pop('Close')
 
@@ -149,13 +136,8 @@ def test(company, features):
     return result
 
 def predict(company, features):
-    model = None
-    data = pd.DataFrame()
-    if features == 3:
-        data = method.merge(company.news, company.price[['Date', "EMA", 'Volume', 'Close']], "Date", "Date")
-        model = company.model
-    else:
-        print("Model selecting Error")
+    data = method.merge(company.news, company.price[['Date', "EMA", 'Volume', 'Close']], "Date", "Date")
+    model = company.model
     ma = data['EMA']
     close = data.pop('Close')
 
