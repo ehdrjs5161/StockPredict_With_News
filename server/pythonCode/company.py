@@ -6,7 +6,7 @@ import os
 from collections import OrderedDict
 
 mongo = DB_Handler.DBHandler()
-db_name = "stockPredict"
+db_name = "stockpredict"
 
 class companys:
     def __init__(self, code, name, batch, term):
@@ -38,8 +38,8 @@ class companys:
     def update_data(self):
         yesterday = method.date_to_str(datetime.datetime.today()-datetime.timedelta(days=1))
         yesterday = method.str_to_date(yesterday)
-        # 가지고 있는 뉴스 데이터의 마지막 날짜와 어제 날짜를 비교하여 뉴스 데이터 중 어제 뉴스가 포함되지 않다면 크롤링해서 저장.
-        if method.str_to_date(self.news['Date'].iloc[-1]) != yesterday:
+        # 가지고 있는 뉴스 데이터의 마지막 날짜와 어제 날짜를 비교하여 뉴스 데이터 중 어제 뉴스가 포함되지 않다면 크롤링해서 저장. 토, 일엔 주가 데이터가 나오지 않으므로 뉴스도 업데이트 x
+        if method.str_to_date(self.news['Date'].iloc[-1]) != yesterday and method.not_update_day(yesterday):
             print("Update News")
             begin = method.str_to_date(self.news['Date'].iloc[-1]) + datetime.timedelta(days=1)
             self.newNews = getNews.crawling(name=self.name, begin=method.date_to_str(begin), end=method.date_to_str(yesterday))
@@ -55,23 +55,31 @@ class companys:
 
         if method.str_to_date(self.price['Date'].iloc[-1]) != yesterday:
             print("Update Price")
-            temp = getPrice.stock_price(self.code, begin=self.price['Date'].iloc[-1])
+            begin = method.str_to_date(self.price['Date'].iloc[-1]) + datetime.timedelta(days=1)
+            temp = getPrice.stock_price(self.code, begin=method.date_to_str(begin))
             temp.to_csv("file/price/"+self.code+".csv", encoding="UTF-8")
-            self.newPrice = pd.read_csv("file/price/"+self.code+".csv", encoding="UTF-8")[['Date', 'Close', 'Volume']]
+            self.newPrice = pd.read_csv("file/price/"+self.code+".csv", encoding="UTF-8")[['Date', 'Open', 'High', "Low", 'Close', 'Volume']]
             newPrice = method.csv_to_json(self.newPrice)
 
             for price in newPrice:
                 mongo.update_item(condition={"code": "{}".format(self.code)}, update_value={'$push': {'price': price}}, db_name=db_name, collection_name="price")
 
-            self.price = pd.concat([self.price, self.newPrice])
+            if self.price['Date'].iloc[-1] != self.newPrice['Date'].iloc[0]:
+                self.price = pd.concat([self.price, self.newPrice])
+            self.price.drop_duplicates(inplace=True)
             self.update = True
         else:
             print(self.name+"'s News & Price data are already Updated!")
 
         self.price = method.transform(self.price, span=10)
-
+        print(self.price.tail(10))
         if self.update:
             self.model_update()
+        else:
+            if not os.path.isfile("model/{}.h5".format(self.code)):
+                self.model_update()
+            else:
+                self.model = keras.models.load_model("model/{}.h5".format(self.code))
 
     def model_setting(self):
         if not os.path.isfile("model/test_model/{}.h5".format(self.code)):
@@ -88,8 +96,6 @@ class companys:
                 print("Test_model educate: Completed")
         else:
             self.test_model = keras.models.load_model("model/test_model/{}.h5".format(self.code))
-
-        self.model = keras.models.load_model("model/{}.h5".format(self.code))
 
     def model_update(self):
         print("Create Full data Learning Model")

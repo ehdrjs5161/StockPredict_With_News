@@ -22,8 +22,8 @@ def predict(code):
 
 
 if __name__ == "__main__":
-    kospi = mongo.find_items(db_name="stockPredict", collection_name="code")
-    kospi = pd.DataFrame(kospi)[['code', 'name']]
+    kospi = mongo.client.get_database("stockpredict").code
+    kospi = pd.DataFrame(kospi.find())[['code', 'name']]
 
     for i in range(0, len(kospi['code'])):
         predict(kospi['code'].iloc[i])

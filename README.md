@@ -12,6 +12,8 @@
 
 * pymongo
 
+* dnspython
+
 * tensorflow-gpu==2.4
 
 * numpy

@@ -11,11 +11,12 @@ from pythonCode import DB_Handler
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 mongo = DB_Handler.DBHandler()
-kospi = mongo.find_items(db_name="stockPredict", collection_name="code")
-kospi = pd.DataFrame(kospi)[['code', 'name']]
+kospi = mongo.client.get_database("stockpredict").code
+kospi = pd.DataFrame(kospi.find())[['code', 'name']]
+
 options = []
-result = mongo.find_items(db_name="stockPredict", collection_name="predictResult")
-result = pd.DataFrame(result)[['code', 'name', 'predict', 'rate']]
+result = result = mongo.client.get_database("stockpredict").predictResult
+result = pd.DataFrame(result.find())[['code', 'name', 'predict', 'rate']]
 result.columns = ['종목코드', '기업명', '예측 종가(KRW)', '전일 대비(%)']
 
 for code, name in zip(kospi['code'], kospi['name']):
@@ -86,14 +87,14 @@ app.layout = html.Div(
     Output("Stock_Graph", "figure"),
     [Input("dropdown", "value")])
 def show_graph(dropdown):
-    result = mongo.find_item(condition={"code": "{}".format(dropdown)}, db_name="stockPredict",
+    result = mongo.find_item(condition={"code": "{}".format(dropdown)}, db_name="stockpredict",
                              collection_name="testResult")
-    result = pd.DataFrame(result['result'])[['Date', 'Price', 'Predict']]
+    result = pd.DataFrame(result['price'])[['Date', 'Actual_Price', 'Predict_Price']]
 
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=result['Date'], y=result['Predict'],
+    fig.add_trace(go.Scatter(x=result['Date'], y=result['Predict_Price'],
                              mode='lines', name='Predict'))
-    fig.add_trace(go.Scatter(x=result['Date'], y=result['Price'],
+    fig.add_trace(go.Scatter(x=result['Date'], y=result['Actual_Price'],
                              mode='lines', name='Price'))
     fig.update_layout(
         template="plotly_white",

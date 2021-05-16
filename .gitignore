@@ -1,12 +1,16 @@
+# Exclude Models
 server/model/test_model
 server/model/NLP_model
 server/model/*.h5
-server/pythonCode/test__file.py
-server/pythonCode/naverAPI.py
+
+# Exclude Large Data
 server/file/news/**
 server/file/news/*.csv
 server/file/price/*.csv
+
+#Exclude temporary or test file
 server/test_result
-server/pythonCode/test_file2.py
+server/pythonCode/test__file.py
+server/pythonCode/naverAPI.py
 .idea/
 .idea/workspace.xml

@@ -20,7 +20,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b814f35-c772-4d9b-ada7-f82a00ecf975" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/plotlyApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/plotlyApp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/pythonCode/DB_Handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/DB_Handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/pythonCode/company.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/company.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/pythonCode/method.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/method.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/update.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/update.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +64,7 @@
       <recent name="C:\pythonProject\Stock_predict\server\pythonCode" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.update">
+  <component name="RunManager" selected="Python.plotlyApp">
     <configuration name="plotlyApp (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Stock_predict" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -186,10 +193,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.plotlyApp" />
         <item itemvalue="Python.update" />
         <item itemvalue="Python.test__file" />
         <item itemvalue="Python.test_file2" />
-        <item itemvalue="Python.plotlyApp" />
         <item itemvalue="Python.plotlyApp (1)" />
       </list>
     </recent_temporary>
@@ -230,34 +237,34 @@
     <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1620930280048">
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1621077467472">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1620930280048" />
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1621077467472" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1621073904971">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1621073904971" />
-    <state width="1899" height="421" key="GridCell.Tab.0.bottom" timestamp="1621075020922">
+    <state width="1899" height="179" key="GridCell.Tab.0.bottom" timestamp="1621151169543">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="421" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1621075020922" />
-    <state width="1899" height="421" key="GridCell.Tab.0.center" timestamp="1621075020922">
+    <state width="1899" height="179" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1621151169543" />
+    <state width="1899" height="179" key="GridCell.Tab.0.center" timestamp="1621151169543">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="421" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1621075020922" />
-    <state width="1899" height="421" key="GridCell.Tab.0.left" timestamp="1621075020922">
+    <state width="1899" height="179" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1621151169543" />
+    <state width="1899" height="179" key="GridCell.Tab.0.left" timestamp="1621151169542">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="421" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1621075020922" />
-    <state width="1899" height="421" key="GridCell.Tab.0.right" timestamp="1621075020922">
+    <state width="1899" height="179" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1621151169542" />
+    <state width="1899" height="179" key="GridCell.Tab.0.right" timestamp="1621151169543">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="421" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1621075020922" />
-    <state x="461" y="164" key="SettingsEditor" timestamp="1617803004165">
+    <state width="1899" height="179" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1621151169543" />
+    <state x="461" y="164" key="SettingsEditor" timestamp="1621076521027">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1617803004165" />
+    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1621076521027" />
     <state x="0" y="0" width="1601" height="1027" key="dock-window-1" timestamp="1620932781209">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -274,6 +281,11 @@
           <url>file://$PROJECT_DIR$/server/pythonCode/modeling.py</url>
           <line>51</line>
           <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/server/pythonCode/company.py</url>
+          <line>55</line>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -6,7 +6,7 @@ import os
 from . import getPrice, getNews, method, DB_Handler
 
 mongo = DB_Handler.DBHandler()
-db_name = "stockPredict"
+db_name = "stockpredict"
 
 
 def csv_to_json(data):
@@ -48,6 +48,13 @@ def code_to_name(frame, code):
     name = list(frame['name'][name])
     return name[0]
 
+def not_update_day(day):
+    # day.week() => 월:0 화:1 수:2 목:3 금:4 토:5 일:6
+    if day.weekday() > 4:
+        return False
+    else:
+        return True
+
 def load_data(company):
     code = set_code(company.code)
     news = mongo.find_item(condition={"code": "{}".format(code)}, db_name=db_name, collection_name="news")
@@ -80,7 +87,7 @@ def load_data(company):
     if price is None:
         price = getPrice.stock_price(code, "2012-01-01")
         price.to_csv("file/price/"+code+'.csv', encoding="UTF-8")
-        price = pd.read_csv("file/price/"+code+".csv")[['Date', 'Close', 'Volume']]
+        price = pd.read_csv("file/price/"+code+".csv")[['Date', "Open", 'High', 'Low', 'Close', 'Volume']]
         price_json = csv_to_json(price)
         price_input = OrderedDict()
         price_input['code'] = code
@@ -90,7 +97,6 @@ def load_data(company):
     else:
         price = pd.DataFrame(price['price'])
         # price = method.transform(price, company.span)
-
     return news, price
 
 def find_idx(data, begin_date):
