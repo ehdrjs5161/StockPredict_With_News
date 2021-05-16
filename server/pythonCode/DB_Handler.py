@@ -4,9 +4,6 @@ import ssl
 url = "mongodb+srv://admin:1234@stockpredict.n45hq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 class DBHandler:
     def __init__(self):
-        # host = 'localhost'
-        # port = 27017
-        # self.client = MongoClient(host, int(port))
         self.client = MongoClient(url, ssl_cert_reqs=ssl.CERT_NONE)
 
     def insert_item(self, data, db_name=None, collection_name=None):
