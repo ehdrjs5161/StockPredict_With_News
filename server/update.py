@@ -25,5 +25,6 @@ if __name__ == "__main__":
     kospi = mongo.client.get_database("stockpredict").code
     kospi = pd.DataFrame(kospi.find())[['code', 'name']]
 
-    for i in range(0, len(kospi['code'])):
-        predict(kospi['code'].iloc[i])
+    for code in kospi['code']:
+        if code == "105560" or code == "000990":
+            predict(code)
