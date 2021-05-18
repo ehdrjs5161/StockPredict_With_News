@@ -1,7 +1,7 @@
 import pandas as pd
-from server.pythonCode import DB_Handler as DB_Handler
-from server.pythonCode import method as method
-from server.pythonCode import company as company
+from pythonCode import DB_Handler as DB_Handler
+from pythonCode import method as method
+from pythonCode import company as company
 import datetime
 from collections import OrderedDict
 
@@ -20,11 +20,8 @@ def predict(code):
     comp.result_save()
     print(comp.result)
 
-
 if __name__ == "__main__":
     kospi = mongo.client.get_database("stockpredict").code
     kospi = pd.DataFrame(kospi.find())[['code', 'name']]
-
     for code in kospi['code']:
-        if code == "105560" or code == "000990":
             predict(code)

@@ -21,7 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0b814f35-c772-4d9b-ada7-f82a00ecf975" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/pythonCode/company.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/company.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/update.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/update.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,7 +58,7 @@
       <recent name="C:\pythonProject\Stock_predict\server\pythonCode" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.plotlyApp">
+  <component name="RunManager" selected="Python.update">
     <configuration name="plotlyApp (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Stock_predict" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -188,8 +187,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.plotlyApp" />
         <item itemvalue="Python.update" />
+        <item itemvalue="Python.plotlyApp" />
         <item itemvalue="Python.test__file" />
         <item itemvalue="Python.test_file2" />
         <item itemvalue="Python.plotlyApp (1)" />
