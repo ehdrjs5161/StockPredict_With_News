@@ -151,4 +151,4 @@ def price_info(dropdown):
 #     return fig
 
 if __name__ == "__main__":
-    app.run_server(host="172.31.47.123", debug=True)
+    app.run_server(host="13.125.147.123", debug=True)
