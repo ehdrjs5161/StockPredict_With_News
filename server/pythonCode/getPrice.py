@@ -3,7 +3,7 @@ import pandas as pd
 import os
 from pykrx import stock
 import datetime
-from server.pythonCode import method
+from . import method
 
 
 def stock_price(code, begin):

@@ -5,7 +5,7 @@ from konlpy.tag import Okt
 import re
 import numpy as np
 import pandas as pd
-from server.pythonCode import modeling
+from . import modeling
 import time
 import os
 
