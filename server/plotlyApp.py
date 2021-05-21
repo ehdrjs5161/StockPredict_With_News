@@ -71,7 +71,7 @@ app.layout = html.Div(
                                                    style_header={"fontWeight": 'bold'},
                                                    ))
                  ]),
-        html.Div(style={"width": "1500px"},
+        html.Div(style={"width": "1450px"},
                  children=[
                      html.H1("TEST Accuracy",
                              style={"textAlign": "center",
@@ -79,7 +79,7 @@ app.layout = html.Div(
                                     "font-size": "25px"}),
                      dcc.Graph(id="Stock_Graph",
                                style={"margin-top": "-20px",
-                                      "height": "930px"})
+                                      "height": "900px"})
                  ])
     ])
 
@@ -133,22 +133,6 @@ def show_graph(dropdown):
 def price_info(dropdown):
     isdropdown = result['종목코드'] == dropdown
     return result[isdropdown].to_dict("records")
-
-# @app.callback(
-#     Output('datatable-paging', 'data'),
-#     Input('datatable-paging', "page_current"),
-#     Input('datatable-paging', "page_size"))
-# def update_table(page_current, page_size):
-#     return result.iloc[
-#         page_current*page_size:(page_current+ 1)*page_size
-#     ].to_dict('records')
-# @app.callback(
-#     Output("predict_result", "figure"),
-#     [Input("dropdown", "value")])
-# def predict_result(dropdown):
-#     isnotdropdown = result['종목코드'] != dropdown
-#     fig = ff.create_table(result[isnotdropdown])
-#     return fig
 
 if __name__ == "__main__":
     app.run_server(port="8050", debug=True)

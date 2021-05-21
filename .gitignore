@@ -1,5 +1,5 @@
 # Exclude Models
-server/model/test_model
+server/model/test_model/*.h5
 server/model/NLP_model
 server/model/*.h5
 

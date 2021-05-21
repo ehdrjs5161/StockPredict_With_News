@@ -20,7 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b814f35-c772-4d9b-ada7-f82a00ecf975" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/plotlyApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/plotlyApp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/pythonCode/company.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/company.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/pythonCode/modeling.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/pythonCode/modeling.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +61,7 @@
       <recent name="C:\pythonProject\Stock_predict\server\pythonCode" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.update">
+  <component name="RunManager" selected="Python.plotlyApp">
     <configuration name="plotlyApp (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Stock_predict" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -186,8 +190,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.update" />
         <item itemvalue="Python.plotlyApp" />
+        <item itemvalue="Python.update" />
         <item itemvalue="Python.test__file" />
         <item itemvalue="Python.test_file2" />
         <item itemvalue="Python.plotlyApp (1)" />
@@ -238,22 +242,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1621073904971" />
-    <state width="1899" height="236" key="GridCell.Tab.0.bottom" timestamp="1621355296691">
+    <state width="1899" height="165" key="GridCell.Tab.0.bottom" timestamp="1621605480952">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="236" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1621355296691" />
-    <state width="1899" height="236" key="GridCell.Tab.0.center" timestamp="1621355296691">
+    <state width="1899" height="165" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1621605480952" />
+    <state width="1899" height="165" key="GridCell.Tab.0.center" timestamp="1621605480952">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="236" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1621355296691" />
-    <state width="1899" height="236" key="GridCell.Tab.0.left" timestamp="1621355296690">
+    <state width="1899" height="165" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1621605480952" />
+    <state width="1899" height="165" key="GridCell.Tab.0.left" timestamp="1621605480952">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="236" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1621355296690" />
-    <state width="1899" height="236" key="GridCell.Tab.0.right" timestamp="1621355296691">
+    <state width="1899" height="165" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1621605480952" />
+    <state width="1899" height="165" key="GridCell.Tab.0.right" timestamp="1621605480952">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="236" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1621355296691" />
+    <state width="1899" height="165" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1621605480952" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1621076521027">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

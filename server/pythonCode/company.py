@@ -83,7 +83,7 @@ class companys:
         self.model_update()
 
     def model_setting(self):
-        # if not os.path.isfile("model/test_model/{}.h5".format(self.code)):
+        if not os.path.isfile("model/test_model/{}.h5".format(self.code)):
             print("Create Test Model")
             if len(self.news) < 1000:
                 if os.path.isfile("model/test_model/005930.h5"):
@@ -95,8 +95,8 @@ class companys:
                 self.test_model = modeling.modeling(self.batch_size, self.term, features=3)
                 self.test_model = modeling.model_educate(self, 1, feature=3, model_type="test")
                 print("Test_model educate: Completed")
-        # else:
-        #     self.test_model = keras.models.load_model("model/test_model/{}.h5".format(self.code))
+        else:
+            self.test_model = keras.models.load_model("model/test_model/{}.h5".format(self.code))
 
     def model_update(self):
         print("Create Full data Learning Model")

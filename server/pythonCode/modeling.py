@@ -103,7 +103,7 @@ def test(company, features):
     ma = data['EMA']
     close = data.pop('Close')
 
-    if company.code == "005930":
+    if len(company.news) > 1000:
         data = data[int(len(data)*0.8):]
         close = close[int(len(close)*0.8):]
         ma = ma[int(len(ma)*0.8):]
