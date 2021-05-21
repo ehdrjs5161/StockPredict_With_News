@@ -73,6 +73,6 @@ pip install [Library_name]
     python plotlyApp.py
 `````
 
-# 결과
+# UI
 
 ![ui](https://user-images.githubusercontent.com/58135272/119150221-3193fc80-ba89-11eb-9378-3c329db39698.png)
