@@ -53,9 +53,7 @@ pip install [Library_name]
  
 * 딥러닝의 Features 선정 방법: 상관계수, VIF(Variance Inflation Factor) 사용
 
-* 케라스를 이용한 LSTM모델로 이전 10일 동안의 10일간 지수이동평균, 거래량, 뉴스 감성분석을 Features로 하여 다음 개장일의 종가(Close)를 예측
-
-* Overfitting현상, Lagging현상을 보완하기 위해 모델 앙상블(Ensemble) 기법 사용.
+* 케라스를 이용한 LSTM모델로 이전 10일 동안의 10일간 지수이동평균(EMA), 거래량, 뉴스 감성분석을 Features로 하여 다음 개장일의 종가(Close)를 예측
 
 # 결과
 
