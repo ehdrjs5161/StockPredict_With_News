@@ -27,7 +27,6 @@ for code, name in zip(kospi['code'], kospi['name']):
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
-
 def generate_table(frame):
     return html.Table([
         html.Thead(
