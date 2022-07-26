@@ -1,7 +1,8 @@
 from pymongo import MongoClient
 import ssl
 
-url = "mongodb+srv://admin:1234@stockpredict.n45hq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+# url = "mongodb+srv://admin:1234@stockpredict.n45hq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+url = "mongodb+srv://admin:1234@stockpredict.n45hq.mongodb.net/?retryWrites=true&w=majority"
 class DBHandler:
     def __init__(self):
         self.client = MongoClient(url, ssl_cert_reqs=ssl.CERT_NONE)
