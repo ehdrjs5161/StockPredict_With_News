@@ -35,6 +35,11 @@
 pip install [Library_name]
 ```
 
+```
+# 간단 설치 방법
+pip install -r requirements.txt
+```
+
 # 데이터
 
 * Beautiful-Soup를 이용하여 수집한 2012년 1월 1일 이후 네이버 뉴스의 헤드라인 데이터

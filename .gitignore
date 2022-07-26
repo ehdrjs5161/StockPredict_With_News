@@ -13,6 +13,6 @@ server/test_result
 server/pythonCode/test__file.py
 server/pythonCode/naverAPI.py
 server/ddd.py
-server//rate_diff.csv
+server/rate_diff.csv
 .idea/
 .idea/workspace.xml
